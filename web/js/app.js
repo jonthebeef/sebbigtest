@@ -1,6 +1,7 @@
 import { loadState, saveState, newProfileId } from "./state.js";
 import { loadSubject } from "./content-loader.js";
 import { recallCard } from "./cards/recall.js";
+import { lcwcCard } from "./cards/lcwc.js";
 
 const SUBJECTS = [
   { slug: "maths", name: "Maths" }, { slug: "english", name: "English" }, { slug: "science", name: "Science" },
@@ -203,8 +204,8 @@ async function startSubject(slug, remainder) {
         st.history.push({ date: new Date().toISOString(), subject: slug, topic: q.topicId, type: "recall", ...result });
         saveState(st);
         if (result.outcome === "answered" && !result.correct) {
-          // LCWC inserted in Task 4.3
-          i++; showNext();
+          slot.innerHTML = "";
+          slot.append(lcwcCard({ fact: q.a, onDone: () => { i++; showNext(); } }));
         } else { i++; showNext(); }
       },
     }));
