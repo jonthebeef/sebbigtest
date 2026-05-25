@@ -24,3 +24,16 @@ export async function checkAndIncrementIp(env: Env, ip: string, tokensCharged: n
   ]);
   return { ok: true };
 }
+
+function globalKey() { return `spend:${Math.floor(Date.now() / 86_400_000)}`; }
+export async function checkGlobalCap(env: Env): Promise<CheckResult> {
+  const cap = Number(env.DAILY_USD_CAP);
+  const spent = Number((await env.RATE_KV.get(globalKey())) ?? 0);
+  if (spent >= cap) return { ok: false, reason: "Daily budget exhausted" };
+  return { ok: true };
+}
+export async function recordSpend(env: Env, usd: number): Promise<void> {
+  const key = globalKey();
+  const current = Number((await env.RATE_KV.get(key)) ?? 0);
+  await env.RATE_KV.put(key, String(current + usd), { expirationTtl: 86_400 });
+}
