@@ -243,9 +243,28 @@ function runExtras(slug, subject, topics, remainder, slot) {
 
 function endSubject(slug, remainder, slot) {
   slot.innerHTML = "";
-  const done = el(`<div class="rounded-xl bg-emerald-50 p-4">Done! <button class="back ml-2 underline">Home</button></div>`);
-  done.querySelector(".back").addEventListener("click", render);
-  slot.append(done);
+  const panel = el(`
+    <div class="space-y-4 rounded-xl bg-emerald-50 p-4">
+      <p class="text-lg font-semibold">How did that feel?</p>
+      <div class="flex gap-3">
+        <button data-c="frown" class="flex-1 rounded bg-white border p-3 text-3xl">😅</button>
+        <button data-c="smile" class="flex-1 rounded bg-white border p-3 text-3xl">🙂</button>
+        <button data-c="strong" class="flex-1 rounded bg-white border p-3 text-3xl">💪</button>
+      </div>
+    </div>`);
+  panel.querySelectorAll("button[data-c]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const choice = btn.dataset.c;
+      const st = loadState();
+      const prev = st.confidence[slug] ?? [];
+      st.confidence[slug] = [...prev, choice].slice(-10);
+      st.sessions.push({ date: new Date().toISOString(), subject: slug, confidence: choice });
+      saveState(st);
+      if (remainder.length) startSubject(remainder[0], remainder.slice(1));
+      else render();
+    });
+  });
+  slot.append(panel);
 }
 
 render();
