@@ -1,0 +1,92 @@
+{
+  "subject": "Art",
+  "slug": "art",
+  "weighting": "light",
+  "topics": [
+    {
+      "id": "elements-of-art",
+      "name": "The Elements of Art",
+      "facts": [
+        "The Elements of Art are all nouns.",
+        "Line is a mark or stroke made with a material.",
+        "Tone is the application of light, medium and dark shades, often used to create a 3D or realistic effect.",
+        "Colour refers to the tints or shades we perceive from light reflecting off objects or surfaces.",
+        "Shape is a flat outline without tone, and appears to be 2D.",
+        "Form is a 3D object, or an image which appears to be 3D.",
+        "Texture refers to the qualities of a surface and how it feels, e.g. rough or smooth.",
+        "Shape is 2D while Form is 3D — tone is used to turn a shape into a form."
+      ],
+      "retrieval_questions": [
+        {"q": "What is the definition of Line?", "a": "A mark or stroke made with a material."},
+        {"q": "What is Tone?", "a": "The application of light, medium and dark shades (often to create a 3D or realistic effect)."},
+        {"q": "What is Colour?", "a": "The tints or shades we perceive from light reflecting off objects or surfaces."},
+        {"q": "What is Shape?", "a": "A flat outline without tone (appears to be 2D)."},
+        {"q": "What is Form?", "a": "A 3D object (or an image which appears to be 3D)."},
+        {"q": "What is Texture?", "a": "The qualities of a surface and how it feels, e.g. rough, smooth."},
+        {"q": "What word class are the Elements of Art?", "a": "Nouns."},
+        {"q": "Which element appears 2D — Shape or Form?", "a": "Shape."},
+        {"q": "Which element appears 3D — Shape or Form?", "a": "Form."},
+        {"q": "Which element is used to create a 3D or realistic effect from a flat shape?", "a": "Tone."},
+        {"q": "Name the six Elements of Art.", "a": "Line, Tone, Colour, Shape, Form, Texture."},
+        {"q": "Which element describes how a surface feels?", "a": "Texture."}
+      ],
+      "pee_prompts": [],
+      "circle_prompts": []
+    },
+    {
+      "id": "shading-techniques",
+      "name": "Shading Techniques (turning shapes into forms)",
+      "facts": [
+        "Six shading techniques are used to turn shapes into forms: Hatching, Cross Hatching, Blending, Rendering, Squiggly, and Contour Hatching.",
+        "Hatching uses parallel lines to create tone.",
+        "Cross Hatching uses overlapping sets of parallel lines crossing each other to build up darker tone.",
+        "Blending smooths shading so there are no visible lines between tones.",
+        "Rendering creates smooth, gradual tone, often using soft pencil work.",
+        "Squiggly shading uses small scribbled or squiggly marks to build tone.",
+        "Contour Hatching uses curved lines that follow the form of the object to suggest its 3D shape.",
+        "These techniques apply tone to a 2D shape to make it appear 3D (a form)."
+      ],
+      "retrieval_questions": [
+        {"q": "Name the six shading techniques on the revision sheet.", "a": "Hatching, Cross Hatching, Blending, Rendering, Squiggly, Contour Hatching."},
+        {"q": "Which technique uses parallel lines?", "a": "Hatching."},
+        {"q": "Which technique uses two sets of parallel lines that cross each other?", "a": "Cross Hatching."},
+        {"q": "Which technique smooths out tone so no lines are visible?", "a": "Blending."},
+        {"q": "Which technique uses curved lines that follow the form of the object?", "a": "Contour Hatching."},
+        {"q": "Which technique uses small scribbled marks?", "a": "Squiggly."},
+        {"q": "What is the purpose of these six techniques?", "a": "To turn shapes into forms (make a 2D shape look 3D) by applying tone."},
+        {"q": "Which Element of Art are these techniques mainly building?", "a": "Tone."},
+        {"q": "Which technique produces smooth, gradual shading often called rendering?", "a": "Rendering."},
+        {"q": "If you draw lines that wrap around the curve of a sphere, which technique is that?", "a": "Contour Hatching."}
+      ],
+      "pee_prompts": [],
+      "circle_prompts": []
+    },
+    {
+      "id": "colour-blending",
+      "name": "Colour and Blending",
+      "facts": [
+        "Colours can be grouped as Complimentary, Cool/Warm, or Harmonious.",
+        "Harmonious colours are colours that sit next to each other on the colour wheel and blend together best.",
+        "Complimentary colours sit opposite each other on the colour wheel.",
+        "Cool colours include blues, greens and purples; warm colours include reds, oranges and yellows.",
+        "Tone can be created in colour by adding lighter or darker shades of the same hue.",
+        "Blending two colours together involves gradually transitioning from one colour into another with no hard edge.",
+        "Observational drawing means copying what you see accurately from a reference image.",
+        "The cell image studied is used as a reference for observational drawing and colour blending practice."
+      ],
+      "retrieval_questions": [
+        {"q": "What three categories of colour are listed on the sheet?", "a": "Complimentary, Cool/Warm, and Harmonious."},
+        {"q": "Which type of colours blend together the best?", "a": "Harmonious colours."},
+        {"q": "Where do complimentary colours sit on the colour wheel?", "a": "Opposite each other."},
+        {"q": "Give examples of warm colours.", "a": "Reds, oranges and yellows."},
+        {"q": "Give examples of cool colours.", "a": "Blues, greens and purples."},
+        {"q": "What is observational drawing?", "a": "Drawing by copying what you see accurately from a reference."},
+        {"q": "How do you create tone in a colour?", "a": "By adding lighter or darker shades of the same hue."},
+        {"q": "How do you blend two colours together?", "a": "By gradually transitioning from one colour to the other so there is no hard edge."},
+        {"q": "What subject is used as the observational drawing reference?", "a": "A cell."}
+      ],
+      "pee_prompts": [],
+      "circle_prompts": []
+    }
+  ]
+}

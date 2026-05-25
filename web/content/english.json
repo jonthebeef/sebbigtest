@@ -1,0 +1,110 @@
+{
+  "subject": "English",
+  "slug": "english",
+  "weighting": "heavy",
+  "topics": [
+    {
+      "id": "metaphor-terminology",
+      "name": "Metaphor Terminology (Tenor, Vehicle, Ground)",
+      "facts": [
+        "A metaphor is different to literal language because it describes something by comparing it to something else (saying it IS the other thing), rather than describing it directly or factually.",
+        "There are three parts to a metaphor: the tenor, the vehicle and the ground.",
+        "The tenor is the thing that is actually being described to the reader.",
+        "The vehicle is the imaginative idea that the tenor is being compared to — it is the 'made up' bit.",
+        "The ground is the things that the tenor and the vehicle have in common.",
+        "A simile compares one thing to another using 'like' or 'as'.",
+        "A metaphor states that one thing IS another (no 'like' or 'as').",
+        "Personification gives human qualities to non-human objects or ideas.",
+        "Connotations are the ideas, feelings or associations a word suggests beyond its literal meaning.",
+        "Imagery is descriptive language that creates a picture in the reader's mind."
+      ],
+      "retrieval_questions": [
+        {"q": "How is a metaphor different from literal language?", "a": "It compares one thing to another (saying it IS the other) instead of describing it directly/factually."},
+        {"q": "What are the three parts of a metaphor?", "a": "Tenor, vehicle and ground."},
+        {"q": "What is the tenor in a metaphor?", "a": "The thing that is actually being described."},
+        {"q": "What is the vehicle in a metaphor?", "a": "The imaginative idea the tenor is being compared to — the 'made up' bit."},
+        {"q": "What is the ground in a metaphor?", "a": "The things the tenor and vehicle have in common."},
+        {"q": "What is a simile?", "a": "A comparison using 'like' or 'as'."},
+        {"q": "What is a metaphor?", "a": "A comparison that says one thing IS another (no 'like' or 'as')."},
+        {"q": "What is personification?", "a": "Giving human qualities to non-human things."},
+        {"q": "What are connotations?", "a": "The feelings, ideas or associations a word suggests beyond its literal meaning."},
+        {"q": "What is imagery?", "a": "Descriptive language that creates pictures in the reader's mind."},
+        {"q": "In 'the wind is an unseen force', what is the tenor?", "a": "The wind."},
+        {"q": "In 'the wind is an unseen force', what is the vehicle?", "a": "An unseen force."}
+      ],
+      "pee_prompts": [],
+      "circle_prompts": []
+    },
+    {
+      "id": "who-has-seen-the-wind",
+      "name": "'Who Has Seen the Wind?' by Christina Rossetti",
+      "facts": [
+        "'Who Has Seen the Wind?' is by Christina Rossetti.",
+        "The poem opens: 'Who has seen the wind? / Neither I nor you:'",
+        "Stanza 1 continues: 'But when the leaves hang trembling, / The wind is passing through.'",
+        "Stanza 2 opens: 'Who has seen the wind? / Neither you nor I:'",
+        "Stanza 2 continues: 'But when the trees bow down their heads, / The wind is passing by.'",
+        "The poem uses the wind as a metaphor for powerful but invisible forces in life (such as emotions or faith).",
+        "The repeated rhetorical question 'Who has seen the wind?' emphasises that the wind is an elusive force we cannot see, only feel its effects.",
+        "'Leaves hang trembling' is personification suggesting the leaves are scared, showing the wind's power.",
+        "'Trees bow down their heads' is personification suggesting the trees act submissively/inferior to the wind, proving its strength.",
+        "The poet's possible message is that natural forces (and other invisible forces) can control and move the world even when they cannot be seen — power does not depend on visibility.",
+        "The poem is part of the Big Idea of nature poetry."
+      ],
+      "retrieval_questions": [
+        {"q": "Who wrote 'Who Has Seen the Wind?'?", "a": "Christina Rossetti."},
+        {"q": "What is the repeated rhetorical question in the poem?", "a": "'Who has seen the wind?'"},
+        {"q": "Complete the quote: 'But when the leaves hang ____'", "a": "trembling"},
+        {"q": "Complete the quote: 'But when the trees bow down their ____'", "a": "heads"},
+        {"q": "What does 'the wind is passing through' suggest?", "a": "That the wind is present and real even though we cannot see it."},
+        {"q": "What is the wind a metaphor for in the poem?", "a": "Powerful but invisible forces in life, such as emotions or faith."},
+        {"q": "What language technique is 'the trees bow down their heads'?", "a": "Personification."},
+        {"q": "What does the personification of trees bowing suggest?", "a": "That nature reacts in a submissive, inferior way to the wind, proving its strength."},
+        {"q": "What does the word 'trembling' suggest about the wind?", "a": "That the wind is frightening and powerful."},
+        {"q": "What is the poet's overall message about nature?", "a": "Natural forces can control and move the world even when they cannot be seen — power does not depend on visibility."},
+        {"q": "How does the poem start its first two lines?", "a": "'Who has seen the wind? / Neither I nor you:'"},
+        {"q": "How does the second stanza open differently?", "a": "'Who has seen the wind? / Neither you nor I:' (the 'I' and 'you' are reversed)."},
+        {"q": "What type of question is 'Who has seen the wind?'", "a": "A rhetorical question."},
+        {"q": "In the wind metaphor, what is the tenor?", "a": "The wind."},
+        {"q": "In the wind metaphor, what could the vehicle be?", "a": "An unseen/invisible force such as emotions or faith."},
+        {"q": "In the wind metaphor, what is the ground?", "a": "Both are invisible but have powerful effects on the world."}
+      ],
+      "pee_prompts": [],
+      "circle_prompts": []
+    },
+    {
+      "id": "what-how-why-analysis",
+      "name": "'What, How, Why' Poetry Analysis Structure",
+      "facts": [
+        "Poetry essays use an Introduction, three 'What, How, Why' analysis paragraphs, and a Conclusion.",
+        "The introduction should summarise what the poem is about and what the poet's message might be in a couple of sentences.",
+        "Each analysis paragraph follows the steps: What? How? Why?",
+        "'What?' — answer the question with a topic sentence.",
+        "'How?' — introduce evidence from the text, analyse meaning and deeper meaning, consider tenor/vehicle/ground of metaphors, zoom in on language techniques and words, use 'because'.",
+        "'Why?' — explain the poet's overall message and how it links to the Big Idea of nature, using tentative verbs like 'may', 'perhaps' or 'could have'.",
+        "The conclusion should summarise main ideas overall and link back to the poet's message about nature.",
+        "When analysing an unseen poem: Step 1 read the title and consider connotations; Step 2 read the poem twice; Step 3 annotate; Step 4 plan paragraphs; Step 5 write the essay in full.",
+        "When annotating, find two or three similes/metaphors and label the tenor, vehicle and ground for each."
+      ],
+      "retrieval_questions": [
+        {"q": "What are the three steps of an analysis paragraph?", "a": "What? How? Why?"},
+        {"q": "What goes in the 'What?' step?", "a": "A topic sentence that answers the question."},
+        {"q": "What goes in the 'How?' step?", "a": "Evidence from the text, analysis of meaning and deeper meaning, considering tenor/vehicle/ground, zooming in on language and words (using 'because')."},
+        {"q": "What goes in the 'Why?' step?", "a": "The poet's overall message and how it links to the Big Idea of nature, using tentative verbs like may/perhaps/could have."},
+        {"q": "How many 'What, How, Why' paragraphs are in the essay?", "a": "Three."},
+        {"q": "What should the introduction do?", "a": "Summarise what the poem is about and what the poet's message might be."},
+        {"q": "What should the conclusion do?", "a": "Summarise main ideas and link back to the poet's message about nature."},
+        {"q": "What is Step 1 of unseen poetry analysis?", "a": "Read the title and consider clues and connotations."},
+        {"q": "What is Step 2?", "a": "Read the poem through twice."},
+        {"q": "What is Step 3?", "a": "Annotate the poem (subject, speaker, key words/lines, metaphors with tenor/vehicle/ground, poet's message)."},
+        {"q": "What is Step 4?", "a": "Plan what you will write in each paragraph."},
+        {"q": "What is Step 5?", "a": "Use your plan to write your essay in full."},
+        {"q": "Which tentative verbs should you use in the 'Why?' step?", "a": "May, perhaps, could have."},
+        {"q": "Which connective should you use in the 'How?' step?", "a": "'Because'."},
+        {"q": "What is the Big Idea linking these poems?", "a": "Nature."}
+      ],
+      "pee_prompts": [],
+      "circle_prompts": []
+    }
+  ]
+}

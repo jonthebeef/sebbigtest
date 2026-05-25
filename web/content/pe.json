@@ -1,0 +1,119 @@
+{
+  "subject": "PE",
+  "slug": "pe",
+  "weighting": "light",
+  "topics": [
+    {
+      "id": "athletics",
+      "name": "Athletics",
+      "facts": [
+        "Athletics events are split into track events (running) and field events (jumping and throwing).",
+        "Track events include sprints (100m, 200m), middle distance (400m, 800m, 1500m), long distance, hurdles and relays.",
+        "Field events include long jump, triple jump, high jump, shot put, discus, javelin.",
+        "A sprint start uses starting blocks and the commands 'On your marks', 'Set', 'Go' (or gun).",
+        "A false start is when an athlete moves before the starting signal and can lead to disqualification.",
+        "In relay races a baton must be passed within a 20m changeover box.",
+        "Long jump is measured from the take-off board to the nearest mark made in the sand pit.",
+        "High jump uses the Fosbury Flop technique, jumping backwards over the bar.",
+        "Shot put is a throwing event where the shot is pushed (putted) from the neck, not thrown.",
+        "The javelin must land tip-first within the marked sector for a legal throw.",
+        "Pacing is important in middle and long distance running to avoid tiring too quickly.",
+        "Athletics develops speed, power, stamina, agility and coordination."
+      ],
+      "retrieval_questions": [
+        {"q": "What are the two main categories of athletics events?", "a": "Track and field"},
+        {"q": "Name a sprint event.", "a": "100m or 200m"},
+        {"q": "What is a false start?", "a": "Moving before the starting signal"},
+        {"q": "How long is the relay changeover box?", "a": "20 metres"},
+        {"q": "What is passed between runners in a relay?", "a": "A baton"},
+        {"q": "Where is long jump measured from?", "a": "The take-off board to the nearest mark in the sand"},
+        {"q": "What is the high jump technique called?", "a": "Fosbury Flop"},
+        {"q": "How is the shot put released?", "a": "Pushed (putted) from the neck"},
+        {"q": "Which part of the javelin must land first?", "a": "The tip"},
+        {"q": "What commands are used at a sprint start?", "a": "On your marks, Set, Go"},
+        {"q": "Name a middle distance event.", "a": "800m or 1500m"},
+        {"q": "Name a throwing event in athletics.", "a": "Shot put, discus or javelin"},
+        {"q": "Name a jumping event.", "a": "Long jump, triple jump or high jump"},
+        {"q": "Why is pacing important in long distance?", "a": "To avoid tiring too quickly"},
+        {"q": "What equipment helps a sprinter start?", "a": "Starting blocks"}
+      ],
+      "pee_prompts": [],
+      "circle_prompts": []
+    },
+    {
+      "id": "cricket",
+      "name": "Cricket",
+      "facts": [
+        "Cricket is played between two teams of 11 players on an oval field with a rectangular 22-yard pitch in the middle.",
+        "The aim of the batting team is to score runs; the aim of the fielding team is to take wickets and limit runs.",
+        "A run is scored when both batters complete a run between the wickets.",
+        "A boundary scores 4 runs if the ball rolls/bounces over the boundary, or 6 if it crosses without bouncing.",
+        "A batter can be out by: bowled, caught, LBW (leg before wicket), run out, or stumped.",
+        "An over consists of 6 legal deliveries bowled by one bowler.",
+        "Wickets are made up of three stumps and two bails.",
+        "The wicketkeeper stands behind the stumps to catch or stump the batter.",
+        "A 'no ball' is an illegal delivery (e.g. overstepping) and gives the batting team an extra run.",
+        "A 'wide' is a ball bowled too far from the batter to hit and gives an extra run.",
+        "Wind ball cricket is played with a softer ball, often used for beginners.",
+        "Hardball cricket uses a hard leather ball and requires protective equipment such as pads, gloves and a helmet.",
+        "Key cricket skills include batting, bowling, fielding, catching and throwing."
+      ],
+      "retrieval_questions": [
+        {"q": "How many players are in a cricket team?", "a": "11"},
+        {"q": "How long is a cricket pitch?", "a": "22 yards"},
+        {"q": "How many balls in an over?", "a": "6"},
+        {"q": "How many runs for a boundary that bounces?", "a": "4"},
+        {"q": "How many runs for a boundary hit without bouncing?", "a": "6"},
+        {"q": "Name a way a batter can be out.", "a": "Bowled, caught, LBW, run out or stumped"},
+        {"q": "What does LBW stand for?", "a": "Leg before wicket"},
+        {"q": "What are the parts of the wicket?", "a": "Three stumps and two bails"},
+        {"q": "Who stands behind the stumps?", "a": "The wicketkeeper"},
+        {"q": "What is a no ball?", "a": "An illegal delivery, e.g. overstepping the crease"},
+        {"q": "What is a wide?", "a": "A ball bowled too far from the batter to hit"},
+        {"q": "How is a run scored?", "a": "When both batters complete a run between the wickets"},
+        {"q": "What equipment is needed for hardball cricket?", "a": "Pads, gloves and a helmet"},
+        {"q": "What is used in wind ball cricket?", "a": "A softer ball"},
+        {"q": "Name a key cricket skill.", "a": "Batting, bowling, fielding, catching or throwing"}
+      ],
+      "pee_prompts": [],
+      "circle_prompts": []
+    },
+    {
+      "id": "rounders",
+      "name": "Rounders",
+      "facts": [
+        "Rounders is a striking and fielding game played between two teams of up to 9 players.",
+        "The pitch has four posts arranged in a diamond shape, with the bowler and batter in the middle.",
+        "A full rounder is scored when the batter hits the ball and reaches 4th post in one go.",
+        "A half rounder is scored when the batter reaches 4th post without hitting the ball, or hits and only reaches 2nd post.",
+        "The bowler must bowl underarm to the batter.",
+        "A 'no ball' is bowled too high, too low, too wide or on the wrong side; the batter can run on a no ball but cannot be out.",
+        "A batter is out if caught, stumped at a post they are running to, or if the post they are running to is touched with the ball.",
+        "The batter holds the bat in one hand and tries to hit the ball into the playing area.",
+        "Fielding positions include bowler, backstop, four post players and deep fielders.",
+        "The backstop stands behind the batter to collect missed balls.",
+        "A match is usually played over two innings, with each team batting and fielding once per innings.",
+        "Key rounders skills include batting, bowling, throwing, catching and running."
+      ],
+      "retrieval_questions": [
+        {"q": "How many players are in a rounders team?", "a": "Up to 9"},
+        {"q": "How many posts are on a rounders pitch?", "a": "4"},
+        {"q": "What shape do the posts form?", "a": "A diamond"},
+        {"q": "How is a full rounder scored?", "a": "Hit the ball and reach 4th post in one go"},
+        {"q": "How is a half rounder scored?", "a": "Reach 4th post without hitting the ball, or reach 2nd post after hitting"},
+        {"q": "How must the bowler deliver the ball?", "a": "Underarm"},
+        {"q": "Name a way the bowler can bowl a no ball.", "a": "Too high, too low, too wide or on the wrong side"},
+        {"q": "Can a batter be out on a no ball?", "a": "No"},
+        {"q": "How is a batter out at a post?", "a": "The post is touched with the ball before the batter reaches it"},
+        {"q": "Where does the backstop stand?", "a": "Behind the batter"},
+        {"q": "How many innings in a usual rounders match?", "a": "Two"},
+        {"q": "How does the batter hold the bat?", "a": "In one hand"},
+        {"q": "Name a fielding position in rounders.", "a": "Bowler, backstop, post player or deep fielder"},
+        {"q": "Name a key rounders skill.", "a": "Batting, bowling, throwing, catching or running"},
+        {"q": "What type of game is rounders?", "a": "A striking and fielding game"}
+      ],
+      "pee_prompts": [],
+      "circle_prompts": []
+    }
+  ]
+}

@@ -1,0 +1,375 @@
+{
+  "subject": "Geography",
+  "slug": "geography",
+  "weighting": "structured",
+  "topics": [
+    {
+      "id": "natural-resources",
+      "name": "Our Planet as a Natural Resource",
+      "facts": [
+        "Natural resources are substances found in nature that have a value or purpose to humans.",
+        "Renewable resources can be replaced over time and will not run out, such as water, sunlight or wind.",
+        "Non-renewable resources cannot be replaced quickly enough to keep up with consumption, such as natural gas or coal.",
+        "Fossil fuels (coal, oil, natural gas) are formed from the fossilised remains of ancient plants and animals.",
+        "Crude oil is a naturally occurring black liquid fossil fuel that can be refined into diesel, petrol, kerosene and other petrochemicals.",
+        "An ore is a rock that contains enough metal or mineral to extract and sell at a profit.",
+        "Minerals are naturally occurring substances with distinctive chemical and physical properties.",
+        "Porous materials have small pores that allow liquids or air to pass through; impermeable materials do not.",
+        "Clay is a sticky, fine-grained rock that can be shaped when wet.",
+        "The Industrial Revolution changed the UK from a handicraft and agriculture economy to one of industry and powered machines, from the mid-18th to early 20th century.",
+        "Sustainability means using natural resources responsibly so they support both present and future generations.",
+        "Water scarcity is a condition where water demand exceeds available water supply.",
+        "Tropical regions surround the Equator and have high temperatures; temperate regions have mild temperatures; boreal regions are cold northern areas dominated by coniferous trees.",
+        "A drought is a long period of unusually dry weather with little or no rainfall.",
+        "The United Nations is an intergovernmental organisation of 193 member states formed after WW2 to secure peace, eliminate poverty and protect human rights."
+      ],
+      "retrieval_questions": [
+        { "q": "What is a natural resource?", "a": "A substance found in nature that has value or purpose to humans." },
+        { "q": "What is the difference between renewable and non-renewable resources?", "a": "Renewables can be replaced over time (e.g. wind, water); non-renewables cannot be replaced quickly enough (e.g. coal, gas)." },
+        { "q": "Give two examples of fossil fuels.", "a": "Coal, oil or natural gas." },
+        { "q": "What is crude oil?", "a": "A naturally occurring black liquid fossil fuel that can be refined into diesel, petrol, kerosene and other petrochemicals." },
+        { "q": "What is an ore?", "a": "A rock that contains significant quantities of a metal or mineral, enough to extract and sell at a profit." },
+        { "q": "Define sustainability.", "a": "Using natural resources responsibly so they support both present and future generations." },
+        { "q": "What does impermeable mean?", "a": "A material that does not allow water or liquid to pass through it." },
+        { "q": "What does porous mean?", "a": "Having small pores that allow liquids or air to pass through." },
+        { "q": "What is a drought?", "a": "A long period of unusually dry weather with little or no rainfall." },
+        { "q": "What is water scarcity?", "a": "A condition where water demand exceeds available water supply." },
+        { "q": "When was the Industrial Revolution in the UK?", "a": "From the mid-eighteenth century until the early twentieth century." },
+        { "q": "What is quality of life?", "a": "The general wellbeing of people; whether they are healthy, educated, employed, secure, free and happy." },
+        { "q": "What are the three climate zones mentioned in the knowledge organiser?", "a": "Temperate, tropical and boreal." },
+        { "q": "What is manufacturing?", "a": "Making products by hand or machine, usually in a factory, that are then sold." },
+        { "q": "How many member states does the UN have?", "a": "193." }
+      ],
+      "pee_prompts": [
+        {
+          "question": "Explain why countries should use renewable resources rather than non-renewable resources.",
+          "model_answer": {
+            "point": "Countries should use renewable resources because they are sustainable and will not run out.",
+            "evidence": "Renewable resources such as wind, water and sunlight can be replaced naturally over time, whereas non-renewables like coal and natural gas cannot be replaced quickly enough to match consumption.",
+            "explain": "This means relying on renewables protects supply for future generations and reduces the environmental damage caused by burning fossil fuels, supporting long-term sustainability."
+          }
+        },
+        {
+          "question": "Suggest one reason why water scarcity is becoming a bigger problem in some parts of the world.",
+          "model_answer": {
+            "point": "Water scarcity is increasing because demand for water is rising faster than supply.",
+            "evidence": "Growing populations, more agriculture and longer droughts mean countries in tropical and temperate regions are using more water than rainfall can replace.",
+            "explain": "As a result, communities cannot meet their needs for drinking, sanitation and farming, which lowers quality of life and can lead to conflict over remaining resources."
+          }
+        },
+        {
+          "question": "Explain why fossil fuels are described as non-renewable.",
+          "model_answer": {
+            "point": "Fossil fuels are non-renewable because they cannot be replaced at the rate humans use them.",
+            "evidence": "Coal, oil and natural gas form from the fossilised remains of ancient plants and animals over millions of years.",
+            "explain": "Because the formation process is so slow compared with how quickly we burn them, supplies will eventually run out, which is why they are classed as non-renewable."
+          }
+        }
+      ],
+      "circle_prompts": []
+    },
+    {
+      "id": "manchester-geography",
+      "name": "The Geography of Manchester",
+      "facts": [
+        "Geography is split into the physical world, the human world and the environmental world.",
+        "Latitude measures distance north and south of the Equator; longitude measures distance east and west of the Prime Meridian.",
+        "Ordnance Survey is the national mapping agency of the United Kingdom.",
+        "Settlements are places where people live and can be classed as urban (over 10,000 people) or rural (fewer than 10,000).",
+        "The settlement hierarchy from small to large is: hamlet, village, market town, town, city, conurbation, capital city.",
+        "A conurbation is a large area where several cities or towns have grown together and connected.",
+        "Land use includes residential (housing), industrial (factories), and commercial (shops, offices, hotels).",
+        "Infrastructure means the roads, railways and buildings that support a settlement.",
+        "Urbanisation is the increasing proportion of people living in towns and cities.",
+        "Migration is when people move from one place to another to live; rural-urban migration is when people move from the countryside to cities.",
+        "The seven continents are Europe, Asia, Oceania, Africa, Antarctica, South America and North America.",
+        "A market town is a town whose main function is as a shopping and service centre for the surrounding region.",
+        "A capital city is the city where the government's offices are located.",
+        "Scale means zooming in and out to view the world from personal, local, national, international and global perspectives."
+      ],
+      "retrieval_questions": [
+        { "q": "What is latitude?", "a": "The distance north and south from the Equator." },
+        { "q": "What is longitude?", "a": "The distance east and west from the Prime Meridian." },
+        { "q": "What is Ordnance Survey?", "a": "The national mapping agency of the United Kingdom." },
+        { "q": "What population makes a settlement urban?", "a": "Over 10,000 people." },
+        { "q": "What is a hamlet?", "a": "A very small settlement in a rural area." },
+        { "q": "What is a conurbation?", "a": "A large area where several cities or large towns have grown so much that they are connected to each other." },
+        { "q": "What is residential land use?", "a": "Land used for housing where people live." },
+        { "q": "What is commercial land use?", "a": "Land used for shops, hotels, offices and other businesses." },
+        { "q": "Define urbanisation.", "a": "The increasing proportion of people living in towns and cities." },
+        { "q": "What is rural-urban migration?", "a": "When people move from the countryside to a town or city to live." },
+        { "q": "Name the seven continents.", "a": "Europe, Asia, Oceania, Africa, Antarctica, South America and North America." },
+        { "q": "What is a market town?", "a": "A town whose main function is as a shopping and service centre for the surrounding region." },
+        { "q": "What does the human world cover in Geography?", "a": "How people earn a living, make decisions, develop, where they live and how they interact with places and each other." },
+        { "q": "What is infrastructure?", "a": "Roads, railways and buildings." }
+      ],
+      "pee_prompts": [
+        {
+          "question": "Explain one reason why people move from rural areas to cities like Manchester.",
+          "model_answer": {
+            "point": "People move from rural areas to cities because cities offer more jobs and services.",
+            "evidence": "Manchester is a conurbation with a wide range of commercial and industrial land use, providing employment in shops, offices and factories that rural villages and hamlets cannot match.",
+            "explain": "This rural-urban migration improves quality of life because people can earn higher wages and access better education and healthcare, which is why urbanisation continues to grow."
+          }
+        },
+        {
+          "question": "Suggest why Manchester is described as a conurbation.",
+          "model_answer": {
+            "point": "Manchester is described as a conurbation because several towns and cities have grown into one connected urban area.",
+            "evidence": "Settlements such as Salford, Stockport and Oldham have expanded outwards over time and merged with central Manchester.",
+            "explain": "Continuous urbanisation and population growth have removed the rural gaps between these settlements, creating one large built-up area that meets the definition of a conurbation."
+          }
+        }
+      ],
+      "circle_prompts": []
+    },
+    {
+      "id": "biomes-rainforests",
+      "name": "Biomes and Tropical Rainforests",
+      "facts": [
+        "The Earth has four spheres: the atmosphere (gases), lithosphere (crust, rocks, soils), biosphere (living matter) and hydrosphere (all water).",
+        "A biome is a large-scale ecosystem.",
+        "A tropical rainforest is a hot, moist biome where it rains all year long, found on or near the Equator.",
+        "Adaptations are special features that allow plants and animals to survive in their environment.",
+        "Buttress roots are large ridged roots that create a wide surface area to support tall rainforest trees.",
+        "Drip-tip leaves have pointed tips that allow water to run off quickly without damaging them.",
+        "The water cycle involves evaporation (liquid to gas), condensation (gas to liquid) and precipitation (water falling back to Earth).",
+        "Interception is when precipitation is caught by leaves and branches before reaching the ground.",
+        "Nutrient cycling is the movement of nutrients from the physical environment to living organisms and back.",
+        "Decomposing is the process by which dead organic matter is broken down into simpler substances.",
+        "Deforestation is the clearing of forested areas.",
+        "Indigenous people are people who are native (original) to a particular place.",
+        "Interdependence is the way organisms rely on each other to survive in their environment.",
+        "Climate is the average weather conditions in a place over a long period of time, usually 30 years.",
+        "Altitude (height above sea level) and latitude (distance from the Equator) both affect climate."
+      ],
+      "retrieval_questions": [
+        { "q": "What is a biome?", "a": "A large-scale ecosystem." },
+        { "q": "Where are tropical rainforests found?", "a": "On or near the Equator." },
+        { "q": "What are the four spheres of the Earth?", "a": "Atmosphere, lithosphere, biosphere and hydrosphere." },
+        { "q": "What is the lithosphere?", "a": "The Earth's crust, including its landforms, rocks and soils." },
+        { "q": "What is the hydrosphere?", "a": "All water on the planet including oceans, rivers, lakes, rain, ice and clouds." },
+        { "q": "What are buttress roots?", "a": "Large ridged roots that create a wide surface area to support tall rainforest trees." },
+        { "q": "What are drip-tip leaves?", "a": "Leaves with pointed tips that let water run off quickly without damaging them." },
+        { "q": "Define evaporation.", "a": "When a liquid heats up and turns into a gas." },
+        { "q": "Define condensation.", "a": "When a gas cools down and turns into a liquid." },
+        { "q": "What is interception?", "a": "Precipitation caught by leaves and branches before reaching the ground." },
+        { "q": "What is deforestation?", "a": "The clearing of forested areas." },
+        { "q": "Who are indigenous people?", "a": "People who are native (original) to a particular place." },
+        { "q": "What is interdependence?", "a": "The way organisms rely on each other to survive in their environment." },
+        { "q": "What is an ecosystem?", "a": "A community of living organisms that live in and interact with each other and their physical environment." },
+        { "q": "What is nutrient cycling?", "a": "The movement of nutrients from the physical environment to living organisms and back." }
+      ],
+      "pee_prompts": [
+        {
+          "question": "Explain how drip-tip leaves help plants to survive in the tropical rainforest.",
+          "model_answer": {
+            "point": "Drip-tip leaves help rainforest plants survive by allowing heavy rainfall to run off quickly.",
+            "evidence": "Tropical rainforests near the Equator receive very high precipitation all year round, and the leaves have pointed tips that channel water off the leaf surface.",
+            "explain": "This stops water pooling on the leaves, which would otherwise add weight and encourage fungi or bacteria to grow, so the plant stays healthy and can photosynthesise effectively."
+          }
+        },
+        {
+          "question": "Suggest one reason why deforestation is a problem for indigenous people.",
+          "model_answer": {
+            "point": "Deforestation is a problem for indigenous people because it destroys the environment they depend on.",
+            "evidence": "Indigenous tribes living in the Amazon rely on the rainforest for food, shelter, medicine and cultural identity, but logging and clearing removes the trees and animals they need.",
+            "explain": "Without the forest, their interdependence with the ecosystem is broken, forcing them off their ancestral land and damaging their quality of life and traditions."
+          }
+        },
+        {
+          "question": "Explain why tropical rainforests are described as interdependent ecosystems.",
+          "model_answer": {
+            "point": "Tropical rainforests are interdependent because every part of the ecosystem relies on the others.",
+            "evidence": "Tall trees provide shelter and food for animals, animals spread seeds, fallen leaves decompose to release nutrients, and these nutrients are cycled back to plants through nutrient cycling.",
+            "explain": "If one part is removed, such as by deforestation, the whole system is disrupted because each organism depends on the others for survival, showing strong interdependence."
+          }
+        }
+      ],
+      "circle_prompts": []
+    },
+    {
+      "id": "weather-climate",
+      "name": "Weather and Climate",
+      "facts": [
+        "Weather is the day-to-day conditions of the atmosphere, such as temperature, rainfall, wind and cloud cover.",
+        "Climate is the average weather conditions in a place over a long period of time, usually 30 years.",
+        "Meteorology is the study of the atmosphere and weather forecasting.",
+        "Temperature is measured with a thermometer in degrees Celsius (°C).",
+        "Precipitation is measured with a rain gauge in millimetres (mm).",
+        "Air pressure is measured with a barometer in millibars.",
+        "Wind speed is measured with an anemometer in kph or m/s.",
+        "Wind direction is measured with a wind vane using compass points.",
+        "A depression is an area of low air pressure (rising air); an anticyclone is an area of high air pressure (sinking air).",
+        "Isobars are lines on weather maps connecting areas of the same atmospheric pressure.",
+        "A weather front is the boundary between two air masses, one warmer and one colder.",
+        "The three types of rainfall are convectional, relief and frontal.",
+        "Dew point is the temperature at which condensation occurs.",
+        "A hurricane is a powerful tropical storm forming over warm oceans with winds up to 200mph.",
+        "A tornado is a violent rotating column of air from a thunderstorm cloud to the ground.",
+        "Hurricanes are measured on the Saffir-Simpson Scale (1-5); tornadoes on the Enhanced Fujita Scale (EF0-EF5)."
+      ],
+      "retrieval_questions": [
+        { "q": "What is the difference between weather and climate?", "a": "Weather is day-to-day conditions; climate is the average weather over a long period, usually 30 years." },
+        { "q": "What is meteorology?", "a": "The study of the atmosphere and weather forecasting." },
+        { "q": "Which instrument measures temperature?", "a": "A thermometer, in degrees Celsius." },
+        { "q": "Which instrument measures rainfall?", "a": "A rain gauge, in millimetres." },
+        { "q": "Which instrument measures air pressure?", "a": "A barometer, in millibars." },
+        { "q": "Which instrument measures wind speed?", "a": "An anemometer, in kph or metres per second." },
+        { "q": "Which instrument measures wind direction?", "a": "A wind vane, using compass points." },
+        { "q": "What is a depression?", "a": "An area of low air pressure with rising air." },
+        { "q": "What is an anticyclone?", "a": "An area of high air pressure with sinking air." },
+        { "q": "What is an isobar?", "a": "A line on a weather map connecting areas of the same atmospheric pressure." },
+        { "q": "Name the three types of rainfall.", "a": "Convectional, relief and frontal." },
+        { "q": "What is a weather front?", "a": "A boundary between two air masses, one warmer and one colder." },
+        { "q": "What is a hurricane?", "a": "A powerful tropical storm forming over warm oceans with winds up to 200mph." },
+        { "q": "What is the Saffir-Simpson Scale?", "a": "A scale from 1 to 5 that measures the intensity of a hurricane or tropical storm." },
+        { "q": "What is the Enhanced Fujita Scale?", "a": "A scale from EF0 to EF5 that measures the damage caused by a tornado." },
+        { "q": "What is dew point?", "a": "The temperature at which condensation occurs." }
+      ],
+      "pee_prompts": [
+        {
+          "question": "Explain the difference between weather and climate.",
+          "model_answer": {
+            "point": "Weather and climate are different because they describe atmospheric conditions over very different time scales.",
+            "evidence": "Weather is the day-to-day conditions such as temperature, rainfall and wind, while climate is the average of those conditions over a long period, usually 30 years.",
+            "explain": "This means a single rainy day is weather, but if a place has rainy days nearly every month for decades, that pattern is described as its climate."
+          }
+        },
+        {
+          "question": "Suggest one reason why hurricanes form over tropical oceans.",
+          "model_answer": {
+            "point": "Hurricanes form over tropical oceans because warm sea water provides the energy they need.",
+            "evidence": "In the Tropics, sea surface temperatures are often above 26°C, which causes rapid evaporation and rising warm, moist air.",
+            "explain": "As the moist air rises and condenses, it releases huge amounts of energy that power the storm's strong winds, which is why hurricanes can reach up to 200mph over tropical seas."
+          }
+        },
+        {
+          "question": "Explain why weather forecasters use a range of different instruments.",
+          "model_answer": {
+            "point": "Forecasters use a range of instruments because each one measures a different aspect of the weather.",
+            "evidence": "A thermometer measures temperature, a barometer measures air pressure, an anemometer measures wind speed, a rain gauge measures rainfall and a wind vane shows wind direction.",
+            "explain": "By combining these readings, meteorologists can build a complete picture of the atmosphere and make accurate forecasts, which helps people prepare for extreme weather."
+          }
+        }
+      ],
+      "circle_prompts": []
+    },
+    {
+      "id": "economy",
+      "name": "What is an Economy?",
+      "facts": [
+        "An economy is the system by which goods and services are produced, marketed, sold and bought at local, national and global scales.",
+        "Globalisation is the increasing connectedness between countries.",
+        "The four employment sectors are primary, secondary, tertiary and quaternary.",
+        "The primary sector involves extracting raw materials or agriculture (e.g. farming, mining).",
+        "The secondary sector involves manufacturing products from raw materials and construction.",
+        "The tertiary sector involves providing a service (e.g. shops, teaching, healthcare).",
+        "The quaternary sector involves research and development of new technologies.",
+        "An arable farm grows crops such as wheat and barley.",
+        "A pastoral farm keeps animals such as cattle or sheep.",
+        "A market garden grows fruit, vegetables or flowers.",
+        "A mixed farm keeps animals and grows crops.",
+        "Imports are raw materials, goods or services bought from another country.",
+        "Exports are raw materials, goods or services sold and moved to another country.",
+        "Balance of trade is the difference in value between a country's imports and exports.",
+        "A transnational company (TNC) is a business that operates in more than one country.",
+        "Containerisation is a system of standardised transport using common-sized containers to move goods."
+      ],
+      "retrieval_questions": [
+        { "q": "What is an economy?", "a": "The system by which goods and services are produced, marketed, sold and bought at local, national and global scales." },
+        { "q": "Define globalisation.", "a": "The increasing connectedness between countries." },
+        { "q": "Name the four employment sectors.", "a": "Primary, secondary, tertiary and quaternary." },
+        { "q": "What does the primary sector do?", "a": "It extracts raw materials or carries out agriculture." },
+        { "q": "What does the secondary sector do?", "a": "It manufactures products from raw materials and includes construction." },
+        { "q": "What does the tertiary sector do?", "a": "It provides services." },
+        { "q": "What does the quaternary sector do?", "a": "Research and development of new technologies." },
+        { "q": "What is an arable farm?", "a": "A farm that grows crops, e.g. wheat and barley." },
+        { "q": "What is a pastoral farm?", "a": "A farm that keeps animals, e.g. cattle or sheep." },
+        { "q": "What is a market garden?", "a": "A farm that grows fruit, vegetables or flowers." },
+        { "q": "What is a mixed farm?", "a": "A farm that keeps animals and grows crops." },
+        { "q": "What are imports?", "a": "Raw materials, goods or services bought from another country." },
+        { "q": "What are exports?", "a": "Raw materials, goods or services sold and moved to another country." },
+        { "q": "What is balance of trade?", "a": "The difference in value between a country's imports and exports." },
+        { "q": "What is a transnational company (TNC)?", "a": "A business that operates in more than one country." },
+        { "q": "What is containerisation?", "a": "A system of standardised transport that uses a common size of container to transport goods." },
+        { "q": "Which economic sector includes cocoa farming for a chocolate bar?", "a": "The primary sector." },
+        { "q": "Which sector manufactures the chocolate bar in a factory?", "a": "The secondary sector." }
+      ],
+      "pee_prompts": [
+        {
+          "question": "Explain why a factory might be located close to a motorway.",
+          "model_answer": {
+            "point": "A factory is often located close to a motorway because it makes transport quick and cheap.",
+            "evidence": "Lorries carrying raw materials in and finished products out can reach the factory in less time when motorways and A-roads connect it directly to towns, ports and cities.",
+            "explain": "Good transport links reduce costs, speed up containerisation and exports, and help the business compete in a globalised economy, which is why motorway access is a key factor in choosing a factory site."
+          }
+        },
+        {
+          "question": "Suggest one reason why making a chocolate bar involves more than one economic sector.",
+          "model_answer": {
+            "point": "Making a chocolate bar involves more than one sector because each stage requires a different type of work.",
+            "evidence": "Cocoa beans are harvested from trees in the primary sector, manufactured into chocolate in factories in the secondary sector, sold in supermarkets in the tertiary sector, and improved through research in the quaternary sector.",
+            "explain": "This shows the economy is interconnected, as each sector depends on the others to turn a raw material into a finished product available to customers."
+          }
+        },
+        {
+          "question": "Explain how globalisation has changed the way goods are traded.",
+          "model_answer": {
+            "point": "Globalisation has changed trade by making it faster, cheaper and more international.",
+            "evidence": "Transnational companies now operate in many countries, and containerisation allows goods like cocoa, clothes and electronics to be shipped across the world in standardised containers.",
+            "explain": "This increased connectedness means consumers can buy products made on the other side of the world, while countries can specialise in their exports and rely on imports for everything else."
+          }
+        }
+      ],
+      "circle_prompts": []
+    },
+    {
+      "id": "map-skills",
+      "name": "Map Skills and Grid References",
+      "facts": [
+        "On an Ordnance Survey map, eastings are the vertical grid lines running up the map; northings are the horizontal grid lines running across.",
+        "The golden rule for grid references is 'along the corridor and up the stairs' – eastings always come before northings.",
+        "A 4-figure grid reference locates a whole grid square, e.g. 2245.",
+        "To find a 4-figure reference, read the easting and then the northing of the bottom-left corner of the square.",
+        "A 6-figure grid reference pinpoints a specific location within a grid square, e.g. 102226.",
+        "For a 6-figure reference, each square is divided into 10 imaginary equal parts along both axes.",
+        "OS maps use symbols to show features such as campsites, car parks, places of worship and restaurants.",
+        "The UK is made up of four nations: England, Scotland, Wales and Northern Ireland.",
+        "The world has five oceans: Pacific, Atlantic, Indian, Southern and Arctic.",
+        "Latitude lines run east-west and measure distance from the Equator; longitude lines run north-south and measure from the Prime Meridian."
+      ],
+      "retrieval_questions": [
+        { "q": "Which comes first in a grid reference, eastings or northings?", "a": "Eastings always come first." },
+        { "q": "What is the golden rule for reading grid references?", "a": "Along the corridor and up the stairs – read along the eastings, then up the northings." },
+        { "q": "How many digits are in a 4-figure grid reference?", "a": "Four digits." },
+        { "q": "How many digits are in a 6-figure grid reference?", "a": "Six digits." },
+        { "q": "What does a 4-figure grid reference locate?", "a": "A whole grid square." },
+        { "q": "What does a 6-figure grid reference locate?", "a": "A specific location within a grid square." },
+        { "q": "How is each square divided for a 6-figure reference?", "a": "Into 10 imaginary equal parts along each axis." },
+        { "q": "Name the four nations of the UK.", "a": "England, Scotland, Wales and Northern Ireland." },
+        { "q": "Name the five oceans.", "a": "Pacific, Atlantic, Indian, Southern and Arctic." },
+        { "q": "What does Ordnance Survey produce?", "a": "Maps of the United Kingdom." }
+      ],
+      "pee_prompts": [
+        {
+          "question": "Explain why 6-figure grid references are more useful than 4-figure references for fieldwork.",
+          "model_answer": {
+            "point": "Six-figure grid references are more useful for fieldwork because they pinpoint an exact location.",
+            "evidence": "A 4-figure reference only identifies a 1km grid square, but a 6-figure reference divides that square into 100 smaller parts to locate a specific feature like a campsite.",
+            "explain": "This precision allows geographers to record exactly where data was collected, making fieldwork results more accurate and easier for others to repeat or check."
+          }
+        },
+        {
+          "question": "Suggest why Ordnance Survey maps use symbols rather than written labels.",
+          "model_answer": {
+            "point": "OS maps use symbols rather than written labels to keep the map clear and easy to read.",
+            "evidence": "Symbols such as a tent for a campsite or a knife and fork for a restaurant can be shown in a small space, whereas written labels would crowd the map.",
+            "explain": "This means users can quickly identify features at a glance, and the same symbols can be understood by anyone using the map regardless of language."
+          }
+        }
+      ],
+      "circle_prompts": []
+    }
+  ]
+}

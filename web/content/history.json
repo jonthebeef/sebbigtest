@@ -1,0 +1,220 @@
+{
+  "subject": "History",
+  "slug": "history",
+  "weighting": "structured",
+  "topics": [
+    {
+      "id": "medieval-kings",
+      "name": "Medieval Kings - Who was the worst Medieval King?",
+      "facts": [
+        "William the Conqueror was King of England 1066-1087 and was crowned on Christmas Day 1066, two months after defeating Harold at the Battle of Hastings.",
+        "William put Norman lords in charge of England, who built castles to defend themselves and their king, and he changed the language of government, business and the royal court to French.",
+        "In 1069 William carried out the Harrying of the North after northern rebels took Durham Castle, murdered the Norman earl Robert de Commines, and proclaimed Edgar the Aethling rightful King of England.",
+        "During the Harrying of the North, every village between York and Durham was burnt to the ground, crops were destroyed, fields were laced with salt, and an estimated 100,000 people starved to death.",
+        "In 1085 William ordered the Domesday Book, a survey detailing the possessions of every settlement in England so people could be taxed to pay for his armies and castles.",
+        "King John was King of England 1199-1216 and became king after his popular brother Richard I died fighting in France.",
+        "John captured his nephew Arthur, who also had a claim to the throne, and imprisoned him in a castle in France; Arthur was never seen again and was rumoured to have been tied to a stone and drowned in the River Seine.",
+        "John took 22 knights who supported Arthur, locked them in a dungeon in Corfe Castle and left them to starve.",
+        "In 1209 the Pope excommunicated John, meaning no English church could hold services, marry couples, baptise children or bury the dead, lasting five years.",
+        "John was nicknamed 'Softsword' or 'Lackland' as he lost nearly all English land in France, including Normandy.",
+        "In 1215 the barons forced John to sign the Magna Carta, which included not raising tax without the barons' permission, not imprisoning people without a fair trial (Habeas Corpus), and not controlling the English church.",
+        "John later declared the Magna Carta invalid, leading to civil war that ended only when he died in 1216.",
+        "Edward I was King 1272-1307, was raised on the battlefield, had 16 children, and was known for both charisma and cruelty.",
+        "In 1282 Edward I defeated Welsh prince Llywelyn ap Gruffyd, whose head was kept on a pike at the Tower of London for 15 years; Llywelyn's brother Dafydd was the first to be 'hanged, drawn and quartered'.",
+        "In 1296 Edward I conquered Scotland in just 21 days, earning the nickname 'Hammer of the Scots', stripped King John Balliol of his crown, and took the Stone of Destiny to London."
+      ],
+      "retrieval_questions": [
+        { "q": "When was William the Conqueror crowned King of England?", "a": "Christmas Day 1066" },
+        { "q": "What was the Harrying of the North?", "a": "William's brutal 1069 campaign in which villages between York and Durham were burnt, crops destroyed and fields salted, killing around 100,000 people." },
+        { "q": "Who did the northern rebels proclaim as rightful King of England in 1069?", "a": "Edgar the Aethling, Edward the Confessor's Anglo-Saxon nephew." },
+        { "q": "Who was the Norman earl murdered at Durham Castle in 1069?", "a": "Robert de Commines" },
+        { "q": "When was the Domesday Book ordered and why?", "a": "1085, so William could tax every settlement to pay for his armies and castles." },
+        { "q": "Why did the English call it the 'Doomsday Book'?", "a": "Because they disliked a foreign king passing judgement on them." },
+        { "q": "How long did King John reign?", "a": "1199-1216" },
+        { "q": "What happened to John's nephew Arthur?", "a": "He was captured, imprisoned in France and never seen again; rumoured to have been drowned in the River Seine." },
+        { "q": "What happened in 1209 with King John and the Pope?", "a": "The Pope excommunicated John, banning English church services, marriages, baptisms and burials for five years." },
+        { "q": "What were John's nicknames and why?", "a": "'Softsword' or 'Lackland' because he lost nearly all English land in France, including Normandy." },
+        { "q": "When was the Magna Carta signed?", "a": "1215" },
+        { "q": "Name two demands in the Magna Carta.", "a": "No raising tax without barons' permission; no imprisonment without fair trial (Habeas Corpus); no controlling the English church." },
+        { "q": "How long did Edward I reign?", "a": "1272-1307" },
+        { "q": "Who was Llywelyn ap Gruffyd and what happened to him?", "a": "A Welsh prince who refused to pay homage to Edward; killed in battle in 1282, with his head placed on a pike at the Tower of London for 15 years." },
+        { "q": "What new execution method was used on Dafydd?", "a": "Hanged, drawn and quartered." },
+        { "q": "Why was Edward I called the 'Hammer of the Scots'?", "a": "In 1296 he conquered Scotland in just 21 days." },
+        { "q": "What did Edward I take from Scotland?", "a": "The Stone of Destiny, on which Scottish kings had been crowned for 400 years." },
+        { "q": "Who led the Scottish rebellion against Edward and was executed in 1305?", "a": "William Wallace" },
+        { "q": "Who was crowned King of Scotland in 1306?", "a": "Robert the Bruce" },
+        { "q": "What did William the Conqueror change about government and language?", "a": "He changed the language of government, business and the royal court to French and put Norman lords in charge." }
+      ],
+      "pee_prompts": [],
+      "circle_prompts": [
+        {
+          "question": "Was William the Conqueror the worst Medieval King of England?",
+          "model_answer": {
+            "words_from_question": "One of the worst Medieval kings of England was William the Conqueror.",
+            "evidence": "He carried out the Harrying of the North in 1069 when the north rebelled against him. He marched his army north and burnt to the ground every village between York and Durham. Farm animals were slaughtered, crops were destroyed, and fields were laced with salt so that no more food could be grown, and around 100,000 people starved to death.",
+            "explain_with_more_evidence": "William also ordered the Domesday Book in 1085, which recorded the possessions of every settlement in England so he could tax the people to pay for his armies and castles, placing a heavy burden on his English subjects who resented a foreign king passing judgement on them.",
+            "link": "Therefore, William the Conqueror was one of the worst Medieval kings because he used brutal violence and harsh taxation to control England."
+          }
+        },
+        {
+          "question": "Was King John the worst Medieval King of England?",
+          "model_answer": {
+            "words_from_question": "Another of the worst Medieval kings of England was King John the Bad.",
+            "evidence": "His nephew Arthur also had a claim to the throne, so he captured Arthur, imprisoned him and Arthur was never seen again; it is believed John tied Arthur to a stone and drowned him in the River Seine. He also locked 22 knights who supported Arthur in a dungeon in Corfe Castle and left them to starve.",
+            "explain_with_more_evidence": "In 1209 the Pope excommunicated John, meaning no English church could hold services, marry couples, baptise children or bury dead bodies for five years, and the people were furious as they feared they would go straight to Hell. He also lost nearly all English land in France, earning the nicknames 'Softsword' and 'Lackland'.",
+            "link": "Therefore, King John was one of the worst Medieval kings because he was cruel to his rivals and damaged England's relationship with both the Church and France."
+          }
+        },
+        {
+          "question": "Was Edward I the worst Medieval King of England?",
+          "model_answer": {
+            "words_from_question": "Finally, Edward I could also be considered one of the worst Medieval kings.",
+            "evidence": "When the Welsh prince Llywelyn ap Gruffyd refused to pay homage, Edward invaded Wales. Llywelyn was killed in battle in 1282 and his head was placed on a spike outside the Tower of London for 15 years, while his brother Dafydd was hanged, drawn and quartered in a gruesome new execution.",
+            "explain_with_more_evidence": "Edward was also known as the 'Hammer of the Scots' as in 1296 it took him only 21 days to conquer Scotland, slaughtering rebels and stripping King John Balliol of his crown. He took the Stone of Destiny, on which Scottish kings had been crowned for 400 years, back to London.",
+            "link": "Therefore, Edward I was one of the worst Medieval kings because of the extreme brutality he used to conquer Wales and Scotland."
+          }
+        }
+      ]
+    },
+    {
+      "id": "islamic-golden-age",
+      "name": "The Islamic Golden Age",
+      "facts": [
+        "While most people in medieval Europe could not read or write and were exceptionally poor, the Islamic Empire was in a 'Golden Age'.",
+        "The caliphate was far reaching, and the common Arabic language allowed ideas and goods to spread easily.",
+        "The Prophet Muhammad said 'For every disease Allah has a cure', so Muslim doctors sought new treatments and herbs to heal people.",
+        "Ibn Sina (also known as Avicenna) wrote the 'Canon of Medicine', listing the properties of 760 different cures.",
+        "The 'Canon of Medicine' became the standard medical textbook used to teach doctors in Europe until the 17th century.",
+        "Soap, mirrors and magnifying glasses all came to Europe via the Islamic world.",
+        "Modern numerals (1, 2, 3...) and algebra came from the Islamic world; 'algebra' comes from the Arabic word 'al-jabr', meaning a reunion of broken parts or bone setting.",
+        "The lute (a stringed instrument) and the board game chess also came to Europe from the Middle East.",
+        "Many texts from Ancient Greece and Rome were preserved by being translated into Arabic.",
+        "Baghdad was built in 752AD as the new capital of the Islamic Empire.",
+        "Around 1 million people lived in and around Baghdad, which was built as a circle 1km in diameter with a mosque at the centre.",
+        "Baghdad had running water, beautiful gardens and schools of law; by contrast, London was a small muddy town with around 10,000 inhabitants.",
+        "In 830AD the 'House of Wisdom' library was built in Baghdad.",
+        "Muslim scholars in the House of Wisdom kept alive the classical texts of Ancient Greece and Rome by translating them into Arabic.",
+        "The House of Wisdom had more books than anywhere in the world and was an unrivalled centre for mathematics, astronomy, chemistry and philosophy."
+      ],
+      "retrieval_questions": [
+        { "q": "What was the name given to the period of Islamic flourishing while Europe was poor and illiterate?", "a": "The Islamic Golden Age" },
+        { "q": "What allowed ideas and goods to spread easily across the caliphate?", "a": "The common Arabic language" },
+        { "q": "Who wrote the 'Canon of Medicine'?", "a": "Ibn Sina, also known as Avicenna" },
+        { "q": "How many different cures were listed in the 'Canon of Medicine'?", "a": "760" },
+        { "q": "Until when was the 'Canon of Medicine' the standard medical textbook in Europe?", "a": "The 17th century" },
+        { "q": "What did the Prophet Muhammad say about disease?", "a": "'For every disease Allah has a cure'" },
+        { "q": "Name three everyday items that came to Europe via the Islamic world.", "a": "Soap, mirrors and magnifying glasses" },
+        { "q": "What does the word 'algebra' come from?", "a": "The Arabic word 'al-jabr', meaning a reunion of broken parts or bone setting." },
+        { "q": "Name two leisure items that came to Europe from the Middle East.", "a": "The lute (stringed instrument) and chess" },
+        { "q": "When was Baghdad built?", "a": "752AD" },
+        { "q": "How many people lived in and around Baghdad?", "a": "Around 1 million" },
+        { "q": "Describe the shape and size of Baghdad.", "a": "Built as a circle, 1km in diameter, with a mosque in the centre." },
+        { "q": "How many inhabitants did London have at the time, compared to Baghdad?", "a": "Around 10,000 inhabitants" },
+        { "q": "When was the House of Wisdom built?", "a": "830AD" },
+        { "q": "What subjects was the House of Wisdom famous for?", "a": "Mathematics, astronomy, chemistry and philosophy" },
+        { "q": "How did Muslim scholars preserve classical knowledge?", "a": "By translating Ancient Greek and Roman texts into Arabic." },
+        { "q": "Name three features that made Baghdad more advanced than London.", "a": "Running water, beautiful gardens and schools of law." }
+      ],
+      "pee_prompts": [],
+      "circle_prompts": [
+        {
+          "question": "Why was medicine an important part of the Islamic Golden Age?",
+          "model_answer": {
+            "words_from_question": "Medicine was an important part of the Islamic Golden Age.",
+            "evidence": "The Prophet Muhammad had said that 'For every disease Allah has a cure', so Muslim doctors sought out new treatments and herbs to heal people. Ibn Sina, also known as Avicenna, wrote the 'Canon of Medicine' which listed the properties of 760 different cures.",
+            "explain_with_more_evidence": "The 'Canon of Medicine' became the standard medical textbook used to teach doctors in Europe until the 17th century, showing how far ahead Islamic medicine was compared to European medicine of the same period.",
+            "link": "Therefore, medicine was a key reason why this period is called the Islamic Golden Age, as Muslim doctors made discoveries that influenced Europe for centuries."
+          }
+        },
+        {
+          "question": "Why was Baghdad an important city during the Islamic Golden Age?",
+          "model_answer": {
+            "words_from_question": "Baghdad was a hugely important city during the Islamic Golden Age.",
+            "evidence": "Baghdad was built in 752AD as the new capital of the Islamic Empire. Around 1 million people lived in and around Baghdad, the city was built as a circle 1km in diameter with a mosque in the centre, and it had running water, beautiful gardens and schools of law.",
+            "explain_with_more_evidence": "In 830AD the House of Wisdom library was built in Baghdad, which contained more books than anywhere in the world and was an unrivalled centre for mathematics, astronomy, chemistry and philosophy. By contrast, London at the same time was a small muddy town of just 10,000 inhabitants.",
+            "link": "Therefore, Baghdad was central to the Islamic Golden Age because it was far more advanced than European cities and a centre of learning for the whole world."
+          }
+        },
+        {
+          "question": "How did inventions and ideas from the Islamic world change Europe?",
+          "model_answer": {
+            "words_from_question": "Inventions and ideas from the Islamic world changed Europe in many important ways.",
+            "evidence": "Soap, mirrors and magnifying glasses all came to Europe via the Islamic world, along with modern numerals (1, 2, 3...) and algebra, which comes from the Arabic word 'al-jabr' meaning a reunion of broken parts or bone setting.",
+            "explain_with_more_evidence": "The board game chess and the stringed instrument the lute also came to Europe from the Middle East, and Muslim scholars in the House of Wisdom preserved Ancient Greek and Roman texts by translating them into Arabic, which were later passed on to Europe.",
+            "link": "Therefore, the Islamic Golden Age transformed Europe by introducing new technology, mathematics and preserved classical knowledge that shaped European culture for centuries."
+          }
+        }
+      ]
+    },
+    {
+      "id": "medieval-church",
+      "name": "The Medieval Christian Church in England",
+      "facts": [
+        "Almost every person in medieval England was a Christian and believed in God, the Bible, heaven and hell.",
+        "The head of the Christian Church was the Pope, who was believed to be God's representative on earth.",
+        "The Pope was very powerful across Europe, and the clergy believed they only had to answer to the Pope, not their king.",
+        "The Church owned one third of the land in England.",
+        "Through its monasteries and abbeys, the Church provided education, hospitals, historical records and welfare for the poor.",
+        "Monasteries and abbeys were religious houses in which monks and nuns lived to escape the corruption of the outside world.",
+        "By 1300 there were 900 monasteries and abbeys in England.",
+        "Most medieval people could not read, so popular religion was vivid, dramatic and colourful, taught through stained glass windows and wall paintings.",
+        "'Doom Paintings' in churches showed grim images of sinners being eaten, burnt, boiled alive, placed in chains and poked with spikes by the devil and his demons.",
+        "A pilgrimage was a journey to a place of religious significance.",
+        "The most important pilgrimage location in England was the tomb of Thomas Becket in Canterbury.",
+        "Wealthier pilgrims travelled to locations abroad, such as Rome or Jerusalem.",
+        "Pilgrimages could be dangerous and take years; pilgrims travelled in big groups to avoid being attacked and packed large amounts of supplies.",
+        "Pilgrims undertook journeys for forgiveness of sins, to be cured of disease or disability, or to gain good fortune.",
+        "At pilgrimage sites, relics containing body parts of saints could be prayed to, as they were believed to have miraculous powers."
+      ],
+      "retrieval_questions": [
+        { "q": "What religion did almost everyone in medieval England follow?", "a": "Christianity" },
+        { "q": "Who was the head of the medieval Christian Church?", "a": "The Pope, believed to be God's representative on earth." },
+        { "q": "Who did the clergy believe they had to answer to?", "a": "The Pope, not their king." },
+        { "q": "How much land did the Church own in England?", "a": "One third" },
+        { "q": "Name four things monasteries and abbeys provided.", "a": "Education, hospitals, historical records and welfare for the poor." },
+        { "q": "Who lived in monasteries and abbeys?", "a": "Monks and nuns" },
+        { "q": "How many monasteries and abbeys were there by 1300?", "a": "900" },
+        { "q": "How did most medieval people learn about Christianity?", "a": "Through stained glass windows and wall paintings, because most people could not read." },
+        { "q": "What were 'Doom Paintings'?", "a": "Paintings in churches showing in grim detail what would happen to sinners in hell." },
+        { "q": "What is a pilgrimage?", "a": "A journey to a place of religious significance." },
+        { "q": "What was the most important pilgrimage site in England?", "a": "The tomb of Thomas Becket in Canterbury." },
+        { "q": "Name two pilgrimage locations abroad.", "a": "Rome and Jerusalem" },
+        { "q": "Why did pilgrims travel in big groups?", "a": "To avoid being attacked on the dangerous journey." },
+        { "q": "Give three reasons pilgrims went on pilgrimages.", "a": "To gain forgiveness for sins, to have a disease or disability cured, or to gain good fortune in life." },
+        { "q": "What is a relic?", "a": "An object of religious significance, often the physical remains of a saint, believed to have miraculous powers." },
+        { "q": "Who is the leader of the Catholic Church?", "a": "The Pope" },
+        { "q": "What is the name for the group of people who work for the church?", "a": "The clergy" }
+      ],
+      "pee_prompts": [],
+      "circle_prompts": [
+        {
+          "question": "Why was the medieval Church so powerful in England?",
+          "model_answer": {
+            "words_from_question": "The medieval Church was extremely powerful in England.",
+            "evidence": "The Church owned one third of the land in England, and through its monasteries and abbeys, of which there were 900 by 1300, it provided education, hospitals, historical records and welfare for the poor.",
+            "explain_with_more_evidence": "The head of the Church, the Pope, was believed to be God's representative on earth and the clergy believed they only had to answer to the Pope, not their king, which gave the Church huge influence over both ordinary people and rulers across Europe.",
+            "link": "Therefore, the Church was powerful because it controlled land, services and the spiritual lives of almost everyone in medieval England."
+          }
+        },
+        {
+          "question": "Why did medieval people go on pilgrimages?",
+          "model_answer": {
+            "words_from_question": "Medieval people went on pilgrimages for several important religious reasons.",
+            "evidence": "A pilgrimage was a journey to a place of religious significance, such as the tomb of Thomas Becket in Canterbury, or for wealthier pilgrims, Rome or Jerusalem. Some pilgrims travelled to gain forgiveness for their sins, others hoped to have a disease or disability cured, and some wanted to gain good fortune in life.",
+            "explain_with_more_evidence": "At pilgrimage sites, relics containing body parts of saints could be prayed to, as they were believed to have miraculous powers. Pilgrims had to travel in big groups to avoid being attacked and pack large amounts of supplies, which shows how seriously they took these dangerous journeys.",
+            "link": "Therefore, pilgrimages were important because they offered medieval people the hope of forgiveness, healing and good fortune through direct contact with holy places and relics."
+          }
+        },
+        {
+          "question": "Why was popular religion in medieval England so vivid and dramatic?",
+          "model_answer": {
+            "words_from_question": "Popular religion in medieval England was vivid, dramatic and colourful for important reasons.",
+            "evidence": "Most people who lived in the medieval period could not read, so people learned about Christianity through stained glass windows and wall paintings in churches and cathedrals.",
+            "explain_with_more_evidence": "Paintings known as 'Doom Paintings' showed in grim detail what would happen to sinners in hell, with the devil and his demons torturing sinners by eating, burning, boiling, chaining and poking them with spikes, which terrified people into living a good Christian life.",
+            "link": "Therefore, popular religion was vivid and dramatic because the Church needed to teach Christianity to a largely illiterate population and frighten them into avoiding sin."
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,105 @@
+{
+  "subject": "Drama",
+  "slug": "drama",
+  "weighting": "light",
+  "topics": [
+    {
+      "id": "billy-the-kid",
+      "name": "Billy the Kid - Play Study",
+      "facts": [
+        "Billy the Kid is a powerful play that explores themes of war, loss, memory, and identity.",
+        "The play follows the life of Billy, who dreams of being a footballer but is drawn into the Second World War.",
+        "A key theme of the play is war and its effects.",
+        "Another key theme is memory and nostalgia.",
+        "The play also explores growing up and responsibility.",
+        "Friendship and loss are major themes in Billy the Kid.",
+        "The setting of the play is during the Second World War.",
+        "Billy's dream before the war is to be a footballer.",
+        "A key question to consider is: What was the message or moral of the play?",
+        "The play uses staging, lighting, sound, and acting to communicate its themes."
+      ],
+      "retrieval_questions": [
+        {"q": "What is Billy the Kid about?", "a": "A play exploring war, loss, memory, and identity, following Billy who dreams of being a footballer but is drawn into the Second World War."},
+        {"q": "What does Billy dream of becoming?", "a": "A footballer."},
+        {"q": "Which war is Billy drawn into?", "a": "The Second World War."},
+        {"q": "Name two key themes of Billy the Kid.", "a": "War and its effects; memory and nostalgia (also growing up and responsibility; friendship and loss)."},
+        {"q": "What theme relates to looking back on the past in Billy the Kid?", "a": "Memory and nostalgia."},
+        {"q": "Which theme deals with becoming an adult in the play?", "a": "Growing up and responsibility."},
+        {"q": "What key question should you ask about the moral of the play?", "a": "What was the message or moral of the play?"},
+        {"q": "What is one effect of war shown in the play?", "a": "Loss (of friends, of innocence, of identity)."},
+        {"q": "What theme connects characters in Billy the Kid through their relationships?", "a": "Friendship and loss."},
+        {"q": "What sort of play is Billy the Kid described as?", "a": "A powerful play exploring themes of war, loss, memory, and identity."}
+      ],
+      "pee_prompts": [],
+      "circle_prompts": []
+    },
+    {
+      "id": "theatre-review-structure",
+      "name": "Theatre Review Structure",
+      "facts": [
+        "A theatre review should have three key sections: Introduction, Main Body, and Conclusion.",
+        "The Introduction states what the play was called, where and when you saw it, who performed it, and what it was about.",
+        "The Main Body discusses Acting, Set/Costume, Lighting & Sound, and memorable Moments.",
+        "When reviewing acting, you should consider whether it was believable and who stood out.",
+        "When reviewing Set/Costume, you should consider how the design helped tell the story.",
+        "When reviewing Lighting & Sound, you should consider whether they were effective in creating mood or atmosphere.",
+        "You should pick 1-2 scenes and explain what made them memorable.",
+        "The Conclusion explains what you enjoyed most and why, and whether you would recommend it and to whom.",
+        "Sentence starters to describe a moment include: 'The moment that stood out was when...', 'This was effective because...', 'The actor used [gesture/voice/facial expression] to show...'.",
+        "Sentence starters to evaluate performance include: 'The performance made me feel... because...', 'The actor successfully showed [emotion/character] by...', 'The lighting helped create...'.",
+        "A practice task asks: What happened in the scene? How did the actor use voice/body to show emotion? How did lighting/sound/costume help? What effect did it have on the audience?"
+      ],
+      "retrieval_questions": [
+        {"q": "What are the three key sections of a theatre review?", "a": "Introduction, Main Body, and Conclusion."},
+        {"q": "What four things should the Introduction of a theatre review include?", "a": "What the play was called, where and when you saw it, who performed it, and what it was about."},
+        {"q": "What four areas are covered in the Main Body of a theatre review?", "a": "Acting, Set/Costume, Lighting & Sound, and memorable Moments."},
+        {"q": "What two questions should you ask about acting in a review?", "a": "Was it believable? Who stood out?"},
+        {"q": "What should you consider when reviewing Set/Costume?", "a": "How the design helped tell the story."},
+        {"q": "What is the purpose of considering Lighting & Sound in a review?", "a": "To evaluate whether they were effective in creating mood or atmosphere."},
+        {"q": "How many memorable scenes/moments should you pick to discuss?", "a": "1-2 scenes."},
+        {"q": "What two things does the Conclusion address?", "a": "What you enjoyed most and why, and whether you would recommend it and to whom."},
+        {"q": "Give a sentence starter for describing a memorable moment.", "a": "'The moment that stood out was when...' or 'This was effective because...'."},
+        {"q": "Give a sentence starter for evaluating performance.", "a": "'The performance made me feel... because...' or 'The actor successfully showed [emotion/character] by...'."},
+        {"q": "What four questions does the practice task ask about a moment?", "a": "What happened in the scene? How did the actor use voice/body to show emotion? How did lighting/sound/costume help? What effect did it have on the audience?"},
+        {"q": "What aspect of audience experience should a review consider?", "a": "The effect a scene or performance had on the audience (mood, atmosphere, feeling)."}
+      ],
+      "pee_prompts": [],
+      "circle_prompts": []
+    },
+    {
+      "id": "key-vocabulary",
+      "name": "Key Drama Vocabulary",
+      "facts": [
+        "Gesture is a movement made with the hand, arm, or head to express an idea or feeling.",
+        "Expression is the look on someone's face showing emotion.",
+        "Projection is speaking loudly and clearly so the audience can hear.",
+        "Ensemble is a group of actors working together on stage.",
+        "Atmosphere is the feeling or mood created by the performance.",
+        "Characterisation is the way an actor shows a character's personality.",
+        "Symbolism is using props, costumes or actions to represent deeper ideas.",
+        "Staging is how the stage space is used.",
+        "These key terms help you describe and evaluate performance in a theatre review.",
+        "A skills knowledge organiser can be used alongside this vocabulary to retrieve definitions and examples."
+      ],
+      "retrieval_questions": [
+        {"q": "Define gesture.", "a": "A movement made with the hand, arm, or head to express an idea or feeling."},
+        {"q": "What is expression in drama?", "a": "The look on someone's face showing emotion (facial expression)."},
+        {"q": "Define projection.", "a": "Speaking loudly and clearly so the audience can hear."},
+        {"q": "What is an ensemble?", "a": "A group of actors working together on stage."},
+        {"q": "Define atmosphere.", "a": "The feeling or mood created by the performance."},
+        {"q": "What is characterisation?", "a": "The way an actor shows a character's personality."},
+        {"q": "Define symbolism in drama.", "a": "Using props, costumes or actions to represent deeper ideas."},
+        {"q": "What is staging?", "a": "How the stage space is used."},
+        {"q": "Which term describes a hand or arm movement to express an idea?", "a": "Gesture."},
+        {"q": "Which term means speaking loudly and clearly so the audience can hear?", "a": "Projection."},
+        {"q": "Which term describes the mood or feeling created by a performance?", "a": "Atmosphere."},
+        {"q": "Which term means using props or costumes to represent deeper ideas?", "a": "Symbolism."},
+        {"q": "Which term describes actors working together as a group on stage?", "a": "Ensemble."},
+        {"q": "Which term refers to the look on someone's face showing emotion?", "a": "Expression."},
+        {"q": "Which term refers to how an actor shows a character's personality?", "a": "Characterisation."}
+      ],
+      "pee_prompts": [],
+      "circle_prompts": []
+    }
+  ]
+}
