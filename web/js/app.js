@@ -305,8 +305,19 @@ async function renderHome() {
         <h1 class="greeting"></h1>
         <p class="text-lg">📚 Today's plan — let's smash it.</p>
       </div>
-      <ol id="list" class="space-y-2"></ol>
-      <button id="start" class="btn btn-go">🚀 Start</button>
+      <div class="md:grid md:grid-cols-5 md:gap-6 md:items-start space-y-5 md:space-y-0">
+        <div class="md:col-span-3 space-y-3">
+          <h2 class="h-sub md:block hidden">Today's plan</h2>
+          <ol id="list" class="space-y-2"></ol>
+        </div>
+        <div class="md:col-span-2 space-y-3 md:sticky md:top-4">
+          <div class="card-soft hidden md:block">
+            <p class="font-display text-lg mb-1">Stuck? 📖</p>
+            <p class="text-sm">Open your exercise book or textbook for the topic before you start. A quick skim helps your brain warm up.</p>
+          </div>
+          <button id="start" class="btn btn-go">🚀 Start</button>
+        </div>
+      </div>
     </section>`);
   setText(view, ".greeting", `Hi ${s.displayName}! 💪`);
   const list = view.querySelector("#list");

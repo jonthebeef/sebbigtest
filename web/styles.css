@@ -504,3 +504,94 @@ body {
   font-weight: bold;
 }
 .btn-block { width: 100%; margin-top: 16px; }
+
+/* ============================================================
+   Desktop responsive enhancements
+   ============================================================ */
+
+/* Ambient floating orbs — visible only on md+ where there's empty side space */
+.ambient-orbs {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+  display: none;
+}
+.ambient-orbs .orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.45;
+}
+.ambient-orbs .orb-1 {
+  width: 360px; height: 360px;
+  background: radial-gradient(circle, #ff3b81, transparent 70%);
+  top: -80px; left: -120px;
+  animation: orbFloat 14s ease-in-out infinite;
+}
+.ambient-orbs .orb-2 {
+  width: 420px; height: 420px;
+  background: radial-gradient(circle, #7c3aed, transparent 70%);
+  top: 30%; right: -140px;
+  animation: orbFloat 18s ease-in-out infinite reverse;
+}
+.ambient-orbs .orb-3 {
+  width: 320px; height: 320px;
+  background: radial-gradient(circle, #ffb020, transparent 70%);
+  bottom: -120px; left: 20%;
+  animation: orbFloat 22s ease-in-out infinite;
+}
+@keyframes orbFloat {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50%      { transform: translate(40px, -30px) scale(1.08); }
+}
+@media (min-width: 768px) {
+  .ambient-orbs { display: block; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ambient-orbs .orb { animation: none; }
+}
+
+/* Bigger hero & headings on desktop */
+@media (min-width: 768px) {
+  .hero {
+    padding: 32px 32px 36px;
+    border-radius: 32px;
+  }
+  .hero h1 { font-size: 44px; }
+  .hero p  { font-size: 19px; }
+
+  .card        { padding: 28px; border-radius: 28px; }
+  .card-soft   { padding: 24px; }
+
+  .h-display { font-size: 36px; }
+  .h-sub     { font-size: 20px; }
+
+  .plan-item { padding: 16px 18px; font-size: 20px; }
+  .plan-item .num { width: 44px; height: 44px; font-size: 20px; }
+  .plan-item .emoji { font-size: 28px; }
+
+  .topbar { margin: 8px 0 22px; }
+  .chip { font-size: 16px; padding: 10px 18px; }
+
+  .btn-go { font-size: 26px; min-height: 72px; }
+
+  .progress-shell { height: 22px; }
+}
+@media (min-width: 1024px) {
+  .hero h1 { font-size: 52px; }
+  .h-display { font-size: 42px; }
+}
+
+/* Parent view: two-column on lg+ */
+@media (min-width: 1024px) {
+  .parent-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    align-items: start;
+  }
+  .parent-grid > section { margin-bottom: 0; }
+  .parent-card { padding: 22px; }
+}

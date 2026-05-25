@@ -221,7 +221,11 @@ async function main() {
 
   clearRoot();
   root.append(headingBlock(s));
-  root.append(confidenceBlock(s));
+
+  const grid = el("div", "parent-grid");
+  root.append(grid);
+
+  grid.append(confidenceBlock(s));
 
   // Suggested questions
   const qWrap = el("section", "parent-card mb-6");
@@ -230,17 +234,17 @@ async function main() {
   const qsList = el("ul", "list-disc ml-5 space-y-1 text-sm text-slate-800");
   qsList.append(el("li", "text-slate-500", "Generating…"));
   qWrap.append(qsList);
-  root.append(qWrap);
+  grid.append(qWrap);
 
   // PEE
   const peeRecords = lastByType(s.history, "pee", 5);
   if (peeRecords.length) {
     const wrap = el("section", "mb-6");
     wrap.append(el("h2", "text-lg font-semibold text-slate-900 mb-3", "Last PEE answers"));
-    const grid = el("div", "space-y-3");
-    for (const h of peeRecords) grid.append(renderPeeCard(h));
-    wrap.append(grid);
-    root.append(wrap);
+    const inner = el("div", "space-y-3");
+    for (const h of peeRecords) inner.append(renderPeeCard(h));
+    wrap.append(inner);
+    grid.append(wrap);
   }
 
   // WEEL
@@ -248,10 +252,10 @@ async function main() {
   if (weelRecords.length) {
     const wrap = el("section", "mb-6");
     wrap.append(el("h2", "text-lg font-semibold text-slate-900 mb-3", "Last WEEL answers"));
-    const grid = el("div", "space-y-3");
-    for (const h of weelRecords) grid.append(renderWeelCard(h));
-    wrap.append(grid);
-    root.append(wrap);
+    const inner = el("div", "space-y-3");
+    for (const h of weelRecords) inner.append(renderWeelCard(h));
+    wrap.append(inner);
+    grid.append(wrap);
   }
 
   const qs = await suggestQuestions(s);
