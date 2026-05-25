@@ -5,6 +5,7 @@ import { lcwcCard } from "./cards/lcwc.js";
 import { peeCard } from "./cards/pee.js";
 import { weelCard } from "./cards/weel.js";
 import { planForToday } from "./plan.js";
+import { ensureShareCode, pushSnapshot } from "./sync.js";
 
 const SUBJECTS = [
   { slug: "maths", name: "Maths" }, { slug: "english", name: "English" }, { slug: "science", name: "Science" },
@@ -186,6 +187,40 @@ async function renderHome() {
     startBtn.addEventListener("click", () => startSubject(todays[0], todays.slice(1)));
   }
   root.append(view);
+
+  const settings = el(`
+    <details class="mt-6 text-sm">
+      <summary class="cursor-pointer">Settings</summary>
+      <label class="mt-2 flex items-center gap-2">
+        <input id="share" type="checkbox" />
+        Share progress with parent
+      </label>
+      <div id="codebox" class="hidden mt-2 space-y-1"></div>
+    </details>`);
+  const shareToggle = settings.querySelector("#share");
+  const box = settings.querySelector("#codebox");
+  shareToggle.checked = !!s.shareEnabled;
+  function showCode() {
+    const code = ensureShareCode();
+    box.replaceChildren();
+    const codeLine = document.createElement("div");
+    codeLine.className = "font-mono";
+    codeLine.textContent = `Parent code: ${code}`;
+    const help = document.createElement("p");
+    help.className = "text-slate-600";
+    help.textContent = "Share this code with your parent. They open the Parent View at the same site /parent.html?code=" + code;
+    box.append(codeLine, help);
+    box.classList.remove("hidden");
+  }
+  if (s.shareEnabled) showCode();
+  shareToggle.addEventListener("change", () => {
+    const st = loadState();
+    st.shareEnabled = shareToggle.checked;
+    saveState(st);
+    if (shareToggle.checked) ensureShareCode();
+    render();
+  });
+  view.append(settings);
 }
 
 async function startSubject(slug, remainder) {
@@ -281,6 +316,7 @@ function endSubject(slug, remainder, slot) {
       st.confidence[slug] = [...prev, choice].slice(-10);
       st.sessions.push({ date: new Date().toISOString(), subject: slug, confidence: choice });
       saveState(st);
+      pushSnapshot();
       if (remainder.length) startSubject(remainder[0], remainder.slice(1));
       else render();
     });
