@@ -12,7 +12,7 @@ binding = "PARENT_KV"
 id = "7ac0574231e4455ca71256b43a81829f"
 
 [vars]
-ALLOWED_ORIGIN = "http://localhost:8080"
+ALLOWED_ORIGIN = "http://localhost:8080,https://sebbigtest.pages.dev"
 DAILY_USD_CAP = "5.00"
 
 # ANTHROPIC_API_KEY is set as a secret via `wrangler secret put`
