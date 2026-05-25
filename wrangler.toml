@@ -1,0 +1,18 @@
+name = "seb-revision-api"
+main = "worker/src/index.ts"
+compatibility_date = "2026-05-01"
+workers_dev = true
+
+[[kv_namespaces]]
+binding = "RATE_KV"
+id = "REPLACE_AFTER_CREATE"
+
+[[kv_namespaces]]
+binding = "PARENT_KV"
+id = "REPLACE_AFTER_CREATE"
+
+[vars]
+ALLOWED_ORIGIN = "http://localhost:8080"
+DAILY_USD_CAP = "5.00"
+
+# ANTHROPIC_API_KEY is set as a secret via `wrangler secret put`
