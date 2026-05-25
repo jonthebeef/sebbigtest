@@ -1,4 +1,5 @@
 import { loadState, saveState, newProfileId } from "./state.js";
+import { loadSubject } from "./content-loader.js";
 
 const SUBJECTS = [
   { slug: "maths", name: "Maths" }, { slug: "english", name: "English" }, { slug: "science", name: "Science" },
@@ -20,10 +21,17 @@ function setText(node, selector, text) {
   if (target) target.textContent = text;
 }
 
-function render() {
+function subjectPrettyName(slug) {
+  const found = SUBJECTS.find(s => s.slug === slug);
+  return found ? found.name : slug;
+}
+
+async function render() {
   const s = loadState();
   if (!s.profileId || !s.displayName) return renderName();
   if (s.enabledSubjects.length === 0) return renderSubjects();
+  const next = s.enabledSubjects.find(slug => !(slug in s.coveredTopics));
+  if (next) return renderCoverage(next);
   return renderHome();
 }
 
@@ -76,6 +84,61 @@ function renderSubjects() {
     if (!checked.length) return;
     const s = loadState();
     s.enabledSubjects = checked;
+    saveState(s); render();
+  });
+}
+
+async function renderCoverage(slug) {
+  root.innerHTML = "";
+  root.append(el(`<p class="mt-8">Loading…</p>`));
+  let subject;
+  try {
+    subject = await loadSubject(slug);
+  } catch (e) {
+    // Lenient: if content isn't ready, mark this subject as having empty
+    // coverage and let the user move on, so we don't get stuck.
+    root.innerHTML = "";
+    const notReady = el(`
+      <section class="space-y-4 mt-8">
+        <h1 class="text-2xl font-bold subject-title"></h1>
+        <p>Content isn't ready yet for this subject. We'll skip it for now.</p>
+        <button id="go" class="w-full rounded bg-indigo-600 px-4 py-3 text-white font-semibold">Continue</button>
+      </section>`);
+    setText(notReady, ".subject-title", subjectPrettyName(slug));
+    root.append(notReady);
+    notReady.querySelector("#go").addEventListener("click", () => {
+      const s = loadState();
+      s.coveredTopics[slug] = [];
+      saveState(s); render();
+    });
+    return;
+  }
+  root.innerHTML = "";
+  const view = el(`
+    <section class="space-y-4 mt-8">
+      <h1 class="text-2xl font-bold subject-title"></h1>
+      <p>Tick the topics your class has actually studied.</p>
+      <div id="list" class="space-y-2"></div>
+      <button id="go" class="w-full rounded bg-indigo-600 px-4 py-3 text-white font-semibold">Continue</button>
+    </section>`);
+  setText(view, ".subject-title", subject.subject ?? subjectPrettyName(slug));
+  const list = view.querySelector("#list");
+  for (const t of (subject.topics ?? [])) {
+    const row = el(`
+      <label class="flex items-center gap-3 rounded border p-3 bg-white">
+        <input type="checkbox" class="w-5 h-5" checked />
+        <span class="text-lg topic-name"></span>
+      </label>`);
+    const cb = row.querySelector("input");
+    cb.dataset.id = t.id;
+    setText(row, ".topic-name", t.name);
+    list.append(row);
+  }
+  root.append(view);
+  view.querySelector("#go").addEventListener("click", () => {
+    const ids = [...view.querySelectorAll("input[type=checkbox]:checked")].map(i => i.dataset.id);
+    const s = loadState();
+    s.coveredTopics[slug] = ids;
     saveState(s); render();
   });
 }
