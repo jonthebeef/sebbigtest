@@ -4,6 +4,8 @@ import { recallCard } from "./cards/recall.js";
 import { lcwcCard } from "./cards/lcwc.js";
 import { peeCard } from "./cards/pee.js";
 import { weelCard } from "./cards/weel.js";
+import { mcqCard } from "./cards/mcq.js";
+import { explainCard } from "./cards/explain.js";
 import { planForToday } from "./plan.js";
 import { ensureShareCode, pushSnapshot } from "./sync.js";
 
@@ -361,6 +363,28 @@ async function renderHome() {
   root.append(settings);
 }
 
+function questionKey(topicId, q) { return `${topicId}|${q}`; }
+
+function addToWeak(slug, key) {
+  const st = loadState();
+  const list = st.weakQuestions[slug] ?? [];
+  if (!list.includes(key)) {
+    list.push(key);
+    st.weakQuestions[slug] = list.slice(-50);
+    saveState(st);
+  }
+}
+
+function removeFromWeak(slug, key) {
+  const st = loadState();
+  const list = st.weakQuestions[slug] ?? [];
+  const next = list.filter(k => k !== key);
+  if (next.length !== list.length) {
+    st.weakQuestions[slug] = next;
+    saveState(st);
+  }
+}
+
 async function startSubject(slug, remainder) {
   const s = loadState();
   let subject;
@@ -368,8 +392,35 @@ async function startSubject(slug, remainder) {
   catch { return render(); }
   const covered = new Set(s.coveredTopics[slug] ?? []);
   const topics = (subject.topics ?? []).filter(t => covered.has(t.id));
-  const qs = topics.flatMap(t => (t.retrieval_questions ?? []).map(q => ({ ...q, topicId: t.id })));
-  const queue = qs.sort(() => Math.random() - 0.5).slice(0, 8);
+  const allQs = topics.flatMap(t => (t.retrieval_questions ?? []).map(q => ({ ...q, topicId: t.id })));
+
+  // Build queue: weak Qs first (up to 3), then fresh random to reach 8
+  const weakKeys = s.weakQuestions[slug] ?? [];
+  const byKey = new Map(allQs.map(q => [questionKey(q.topicId, q.q), q]));
+  const weakPicks = [];
+  for (const k of weakKeys) {
+    if (weakPicks.length >= 3) break;
+    const q = byKey.get(k);
+    if (q) weakPicks.push(q);
+  }
+  const weakSet = new Set(weakPicks.map(q => questionKey(q.topicId, q.q)));
+  const fresh = allQs.filter(q => !weakSet.has(questionKey(q.topicId, q.q)))
+                     .sort(() => Math.random() - 0.5)
+                     .slice(0, Math.max(0, 8 - weakPicks.length));
+  const queue = [...weakPicks, ...fresh];
+
+  // Pre-decide which slots use MCQ (~30%) and which is the explain slot (~position 4)
+  const mcqSlots = new Set();
+  queue.forEach((_, idx) => { if (Math.random() < 0.3) mcqSlots.add(idx); });
+  const explainSlot = queue.length >= 4 ? 3 : -1;
+  let explainShown = false;
+
+  // Warm-up: 3 LCWC facts
+  const allFacts = topics.flatMap(t => (t.facts ?? []).map(f => ({ fact: f, topicId: t.id })));
+  const warmups = allFacts.sort(() => Math.random() - 0.5).slice(0, 3);
+
+  // Pick a fact for explain card
+  const explainFact = allFacts.length ? allFacts[Math.floor(Math.random() * allFacts.length)] : null;
 
   root.innerHTML = "";
   root.append(buildTopbar());
@@ -402,12 +453,34 @@ async function startSubject(slug, remainder) {
     progText.textContent = `${current}/${total}`;
   }
 
-  if (!queue.length) {
+  if (!queue.length && !warmups.length) {
     updateProgress(0, 1);
     return runExtras(slug, subject, topics, remainder, slot);
   }
 
-  updateProgress(0, queue.length);
+  // ----- Warm-up phase -----
+  function runWarmups(done) {
+    if (!warmups.length) return done();
+    let w = 0;
+    function showWarm() {
+      if (w >= warmups.length) return done();
+      slot.innerHTML = "";
+      const wrap = document.createElement("div");
+      wrap.className = "space-y-3";
+      const heading = document.createElement("h3");
+      heading.className = "h-display";
+      heading.textContent = `Warm up 🔥  (${w + 1}/${warmups.length})`;
+      wrap.append(heading);
+      wrap.append(lcwcCard({
+        fact: warmups[w].fact,
+        onDone: () => { w++; showWarm(); },
+      }));
+      slot.append(wrap);
+    }
+    showWarm();
+  }
+
+  updateProgress(0, Math.max(queue.length, 1));
 
   let i = 0;
   function showNext() {
@@ -416,18 +489,95 @@ async function startSubject(slug, remainder) {
       return runExtras(slug, subject, topics, remainder, slot);
     }
     updateProgress(i, queue.length);
+    slot.innerHTML = "";
+
+    // Insert explain card at the explainSlot position (before recall at that index)
+    if (i === explainSlot && !explainShown && explainFact) {
+      explainShown = true;
+      slot.append(explainCard({
+        fact: explainFact.fact,
+        onDone: data => {
+          const st = loadState();
+          st.history.push({
+            date: new Date().toISOString(),
+            subject: slug,
+            topic: explainFact.topicId,
+            type: "explain",
+            ...data,
+          });
+          saveState(st);
+          // Don't advance i — fall through to the recall/MCQ for slot i
+          renderQuestion();
+        },
+      }));
+      return;
+    }
+
+    renderQuestion();
+  }
+
+  function renderQuestion() {
     const q = queue[i];
     slot.innerHTML = "";
+
+    // MCQ branch
+    if (mcqSlots.has(i)) {
+      const others = allQs
+        .filter(o => !(o.topicId === q.topicId && o.q === q.q))
+        .map(o => o.a);
+      const uniq = [...new Set(others.filter(a => a && a !== q.a))];
+      const distractors = uniq.sort(() => Math.random() - 0.5).slice(0, 3);
+      if (distractors.length === 3) {
+        slot.append(mcqCard({
+          question: q.q, expected: q.a, distractors,
+          onDone: result => {
+            const st = loadState();
+            st.history.push({
+              date: new Date().toISOString(),
+              subject: slug, topic: q.topicId, type: "mcq",
+              outcome: result.outcome, correct: result.correct, question: q.q,
+            });
+            saveState(st);
+            if (result.correct) removeFromWeak(slug, questionKey(q.topicId, q.q));
+            i++;
+            updateProgress(i, queue.length);
+            showNext();
+          },
+        }));
+        return;
+      }
+      // fall through to recall if not enough distractors
+    }
+
     slot.append(recallCard({
       question: q.q, expected: q.a,
       onDone: result => {
         const st = loadState();
         st.history.push({ date: new Date().toISOString(), subject: slug, topic: q.topicId, type: "recall", ...result });
         saveState(st);
+        const key = questionKey(q.topicId, q.q);
+
+        if (result.outcome === "idk") {
+          addToWeak(slug, key);
+          // Slot in LCWC, then re-queue the question, then advance
+          slot.innerHTML = "";
+          slot.append(lcwcCard({
+            fact: q.a,
+            onDone: () => {
+              queue.push(q);
+              i++;
+              updateProgress(i, queue.length);
+              showNext();
+            },
+          }));
+          return;
+        }
+
         if (result.outcome === "answered" && !result.correct) {
           slot.innerHTML = "";
           slot.append(lcwcCard({ fact: q.a, onDone: () => { i++; updateProgress(i, queue.length); showNext(); } }));
         } else {
+          if (result.outcome === "answered" && result.correct) removeFromWeak(slug, key);
           i++;
           updateProgress(i, queue.length);
           showNext();
@@ -435,7 +585,8 @@ async function startSubject(slug, remainder) {
       },
     }));
   }
-  showNext();
+
+  runWarmups(() => showNext());
 }
 
 function runExtras(slug, subject, topics, remainder, slot) {

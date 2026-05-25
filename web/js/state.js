@@ -11,6 +11,7 @@ const DEFAULT_STATE = {
   history: [],
   confidence: {},
   sessions: [],
+  weakQuestions: {},
 };
 
 export function loadState() {

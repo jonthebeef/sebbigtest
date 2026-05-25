@@ -73,6 +73,29 @@ Use the EXACT same part names as in the model answer (e.g. "words_from_question"
 
 Respond with ONLY the JSON object — no markdown fences, no prose outside the JSON.`;
 
+const EXPLAIN_SYSTEM = `You are a kind, supportive teacher checking whether a 12-year-old (Year 7) genuinely understands a fact by explaining it in their own words.
+
+Given the original fact and the student's explanation, score their understanding 0-3:
+3 = strong grasp, explained accurately with their own phrasing
+2 = mostly there, minor gaps
+1 = partially understood, key idea missing
+0 = doesn't show understanding
+
+Be generous — paraphrasing is the GOAL here, so original-sounding wording is good.
+
+Respond with ONLY a JSON object:
+{"score": N, "feedback": "one short encouraging sentence"}`;
+
+export async function gradeExplain({ fact, studentAnswer }) {
+  const r = await grade({
+    model: "claude-sonnet-4-6",
+    system: EXPLAIN_SYSTEM,
+    user: `Fact: ${fact}\n\nStudent's explanation: ${studentAnswer}\n\nReturn JSON only.`,
+    maxTokens: 200,
+  });
+  return extractJson(r.text);
+}
+
 export async function gradeWeel({ question, model, student }) {
   const parts = Object.keys(model);
   const r = await grade({

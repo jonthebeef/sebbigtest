@@ -4,8 +4,9 @@ const TEMPLATE = `
   <span class="q-pill">⚡ Quick recall</span>
   <h2 class="h-display question mt-2"></h2>
   <textarea class="ans textarea" rows="3" placeholder="Type what you remember…"></textarea>
-  <div class="flex gap-2">
+  <div class="flex gap-2 flex-wrap">
     <button class="submit btn btn-primary flex-1">Check ✓</button>
+    <button class="idk btn btn-ghost" style="width:auto;">I don't know yet 🤔</button>
     <button class="skip btn btn-ghost" style="width:auto;">I haven't learned this</button>
   </div>
   <div class="feedback fb hidden"></div>
@@ -20,9 +21,12 @@ export function recallCard({ question, expected, onDone }) {
   card.querySelector(".question").textContent = question;
   const ans = card.querySelector(".ans");
   const submit = card.querySelector(".submit");
+  const idk = card.querySelector(".idk");
+  const skip = card.querySelector(".skip");
   const fb = card.querySelector(".feedback");
   const next = card.querySelector(".next");
   let correct = false;
+  let mode = "answer"; // "answer" | "idk"
 
   submit.addEventListener("click", async () => {
     const studentAnswer = ans.value.trim();
@@ -52,12 +56,42 @@ export function recallCard({ question, expected, onDone }) {
       fb.append(exp);
     }
     submit.classList.add("hidden");
+    idk.classList.add("hidden");
+    skip.classList.add("hidden");
     next.classList.remove("hidden");
     if (correct && typeof window !== "undefined" && window.__sebCelebrate) {
       window.__sebCelebrate();
     }
   });
-  card.querySelector(".skip").addEventListener("click", () => onDone({ outcome: "skip", question }));
-  next.addEventListener("click", () => onDone({ outcome: "answered", question, correct }));
+
+  idk.addEventListener("click", () => {
+    mode = "idk";
+    // Hide input controls, reveal teaching panel
+    ans.classList.add("hidden");
+    submit.classList.add("hidden");
+    idk.classList.add("hidden");
+    skip.classList.add("hidden");
+    fb.classList.remove("hidden");
+    fb.classList.add("fb-info");
+    fb.replaceChildren();
+    const head = document.createElement("p");
+    head.className = "font-display text-lg";
+    head.textContent = "💡 Here's the answer:";
+    const body = document.createElement("p");
+    body.className = "mt-1";
+    body.textContent = expected;
+    const hint = document.createElement("p");
+    hint.className = "mt-2 text-sm";
+    hint.textContent = "We'll practise this one with Look-Cover-Write-Check, then bring it back later.";
+    fb.append(head, body, hint);
+    next.classList.remove("hidden");
+    next.textContent = "Practise it →";
+  });
+
+  skip.addEventListener("click", () => onDone({ outcome: "skip", question }));
+  next.addEventListener("click", () => {
+    if (mode === "idk") onDone({ outcome: "idk", question });
+    else onDone({ outcome: "answered", question, correct });
+  });
   return card;
 }
