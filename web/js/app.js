@@ -4,6 +4,7 @@ import { recallCard } from "./cards/recall.js";
 import { lcwcCard } from "./cards/lcwc.js";
 import { peeCard } from "./cards/pee.js";
 import { weelCard } from "./cards/weel.js";
+import { planForToday } from "./plan.js";
 
 const SUBJECTS = [
   { slug: "maths", name: "Maths" }, { slug: "english", name: "English" }, { slug: "science", name: "Science" },
@@ -147,22 +148,42 @@ async function renderCoverage(slug) {
   });
 }
 
-function renderHome() {
+async function renderHome() {
   const s = loadState();
+  root.innerHTML = "";
+  root.append(el(`<p class="mt-8">Loading…</p>`));
+
+  const metas = {};
+  await Promise.all(s.enabledSubjects.map(async slug => {
+    try { metas[slug] = await loadSubject(slug); }
+    catch { /* skip unavailable */ }
+  }));
+
+  const todays = planForToday(s, metas);
+
   root.innerHTML = "";
   const view = el(`
     <section class="space-y-4 mt-8">
       <h1 class="text-2xl font-bold greeting"></h1>
-      <p>Pick a subject to practise:</p>
-      <div id="list" class="space-y-2"></div>
+      <p class="text-lg">Today's plan:</p>
+      <ol id="list" class="space-y-2"></ol>
+      <button id="start" class="w-full rounded bg-indigo-600 px-4 py-3 text-white text-lg font-semibold">▶ Start</button>
     </section>`);
   setText(view, ".greeting", `Hi ${s.displayName}`);
   const list = view.querySelector("#list");
-  for (const slug of s.enabledSubjects) {
-    const btn = el(`<button class="w-full rounded bg-white border p-3 text-left text-lg"></button>`);
-    btn.textContent = subjectPrettyName(slug);
-    btn.addEventListener("click", () => startSubject(slug, []));
-    list.append(btn);
+  todays.forEach((slug, i) => {
+    const meta = metas[slug];
+    const name = meta?.subject ?? subjectPrettyName(slug);
+    const li = el(`<li class="rounded border p-3 bg-white text-lg"></li>`);
+    li.textContent = `${i + 1}. ${name}`;
+    list.append(li);
+  });
+  const startBtn = view.querySelector("#start");
+  if (!todays.length) {
+    startBtn.disabled = true;
+    startBtn.classList.add("opacity-50");
+  } else {
+    startBtn.addEventListener("click", () => startSubject(todays[0], todays.slice(1)));
   }
   root.append(view);
 }
