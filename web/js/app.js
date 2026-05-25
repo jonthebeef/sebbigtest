@@ -6,6 +6,7 @@ import { peeCard } from "./cards/pee.js";
 import { weelCard } from "./cards/weel.js";
 import { mcqCard } from "./cards/mcq.js";
 import { explainCard } from "./cards/explain.js";
+import { prepCard, bookNudge } from "./cards/prep.js";
 import { planForToday } from "./plan.js";
 import { ensureShareCode, pushSnapshot } from "./sync.js";
 
@@ -586,7 +587,13 @@ async function startSubject(slug, remainder) {
     }));
   }
 
-  runWarmups(() => showNext());
+  // Prep card → warmups → questions
+  slot.innerHTML = "";
+  slot.append(prepCard({
+    slug,
+    subjectName: subject.subject ?? info.name,
+    onDone: () => runWarmups(() => showNext()),
+  }));
 }
 
 function runExtras(slug, subject, topics, remainder, slot) {

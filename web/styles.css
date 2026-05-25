@@ -456,3 +456,51 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .correct-badge .b, .confetti span, .xp-float { animation-duration: 1ms; }
 }
+
+/* ---------- Prep card ---------- */
+.pill {
+  display: inline-block;
+  background: var(--ink);
+  color: #fff;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-family: "Fredoka", sans-serif;
+  font-size: 13px;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+}
+.pill-amber { background: linear-gradient(90deg, #ff9f1c, #ff3b81); }
+.card-title {
+  font-family: "Fredoka", sans-serif;
+  font-size: 28px;
+  line-height: 1.15;
+  margin: 10px 0 4px;
+}
+.card-lead { color: #4a4a55; font-size: 15px; margin-bottom: 14px; }
+.section-label {
+  font-family: "Fredoka", sans-serif;
+  font-size: 16px;
+  margin: 14px 0 6px;
+  letter-spacing: .01em;
+}
+.prep-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 4px;
+}
+.prep-list li {
+  background: #fff;
+  border: 3px solid var(--ink);
+  border-radius: 14px;
+  box-shadow: var(--shadow-sm);
+  padding: 10px 14px;
+  margin-bottom: 8px;
+  font-size: 15px;
+  line-height: 1.35;
+}
+.prep-list li::before {
+  content: "✓ ";
+  color: #7c3aed;
+  font-weight: bold;
+}
+.btn-block { width: 100%; margin-top: 16px; }
