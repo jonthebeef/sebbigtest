@@ -6,7 +6,7 @@
   "scripts": {
     "dev:web": "npx http-server web -p 8080 -c-1",
     "dev:worker": "wrangler dev",
-    "test": "vitest run",
+    "test": "vitest run --config worker/vitest.config.ts",
     "deploy": "wrangler deploy"
   },
   "devDependencies": {
