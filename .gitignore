@@ -1,0 +1,10 @@
+node_modules/
+.dev.vars
+.wrangler/
+dist/
+.DS_Store
+content/*.json
+!content/.gitkeep
+Year 7 Big Test 2/
+Y7 Big Test 2 - Parent Letter.pdf
+/tmp/
