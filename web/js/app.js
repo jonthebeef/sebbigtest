@@ -3,6 +3,7 @@ import { loadSubject } from "./content-loader.js";
 import { recallCard } from "./cards/recall.js";
 import { lcwcCard } from "./cards/lcwc.js";
 import { peeCard } from "./cards/pee.js";
+import { weelCard } from "./cards/weel.js";
 
 const SUBJECTS = [
   { slug: "maths", name: "Maths" }, { slug: "english", name: "English" }, { slug: "science", name: "Science" },
@@ -215,24 +216,29 @@ async function startSubject(slug, remainder) {
 }
 
 function runExtras(slug, subject, topics, remainder, slot) {
+  let extraType = null;
+  let pick = null;
   if (slug === "geography") {
     const pool = topics.flatMap(t => (t.pee_prompts ?? []).map(p => ({ ...p, topicId: t.id })));
-    if (pool.length) {
-      const pick = pool[Math.floor(Math.random() * pool.length)];
-      slot.innerHTML = "";
-      slot.append(peeCard({
-        question: pick.question, model: pick.model_answer,
-        onDone: data => {
-          const st = loadState();
-          st.history.push({ date: new Date().toISOString(), subject: slug, topic: pick.topicId, type: "pee", ...data });
-          saveState(st);
-          endSubject(slug, remainder, slot);
-        },
-      }));
-      return;
-    }
+    if (pool.length) { extraType = "pee"; pick = pool[Math.floor(Math.random() * pool.length)]; }
+  } else if (slug === "history") {
+    const pool = topics.flatMap(t => (t.circle_prompts ?? []).map(p => ({ ...p, topicId: t.id })));
+    if (pool.length) { extraType = "weel"; pick = pool[Math.floor(Math.random() * pool.length)]; }
   }
-  endSubject(slug, remainder, slot);
+  if (!pick) return endSubject(slug, remainder, slot);
+
+  function finish(data) {
+    const st = loadState();
+    st.history.push({ date: new Date().toISOString(), subject: slug, topic: pick.topicId, type: extraType, ...data });
+    saveState(st);
+    endSubject(slug, remainder, slot);
+  }
+
+  slot.innerHTML = "";
+  const card = extraType === "pee"
+    ? peeCard({ question: pick.question, model: pick.model_answer, onDone: finish })
+    : weelCard({ question: pick.question, model: pick.model_answer, onDone: finish });
+  slot.append(card);
 }
 
 function endSubject(slug, remainder, slot) {
