@@ -5,11 +5,11 @@ workers_dev = true
 
 [[kv_namespaces]]
 binding = "RATE_KV"
-id = "REPLACE_AFTER_CREATE"
+id = "c41c2d4e5dc248cd8b0e2a480074117d"
 
 [[kv_namespaces]]
 binding = "PARENT_KV"
-id = "REPLACE_AFTER_CREATE"
+id = "7ac0574231e4455ca71256b43a81829f"
 
 [vars]
 ALLOWED_ORIGIN = "http://localhost:8080"
