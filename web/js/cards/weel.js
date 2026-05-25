@@ -1,13 +1,13 @@
 import { gradeWeel } from "../grader.js";
 
 const TEMPLATE_HTML = `
-  <section class="rounded-xl bg-white p-4 shadow space-y-3">
-    <p class="text-sm text-slate-500">WEEL answer</p>
-    <h2 class="text-lg font-semibold question"></h2>
+  <section class="card space-y-3">
+    <span class="q-pill">📝 WEEL answer</span>
+    <h2 class="h-display question"></h2>
     <div class="inputs space-y-2"></div>
-    <button class="submit w-full rounded bg-indigo-600 px-4 py-3 text-white font-semibold">Submit</button>
+    <button class="submit btn btn-primary">Submit ✓</button>
     <div class="feedback hidden space-y-2"></div>
-    <button class="next hidden w-full rounded bg-emerald-600 px-4 py-3 text-white font-semibold">Done</button>
+    <button class="next btn btn-success hidden">Done →</button>
   </section>
 `;
 
@@ -28,10 +28,11 @@ export function weelCard({ question, model, onDone }) {
   for (const p of parts) {
     const row = document.createElement("div");
     const label = document.createElement("label");
-    label.className = "block text-sm font-semibold capitalize";
+    label.className = "block h-sub capitalize";
+    label.style.fontSize = "15px";
     label.textContent = prettyLabel(p);
     const ta = document.createElement("textarea");
-    ta.className = "w-full rounded border p-2";
+    ta.className = "textarea";
     ta.rows = 2;
     ta.dataset.part = p;
     row.append(label, ta);
@@ -58,31 +59,33 @@ export function weelCard({ question, model, onDone }) {
     fb.replaceChildren();
     if (!r) {
       const p = document.createElement("p");
+      p.className = "fb fb-nudge";
       p.textContent = "Grader napping — let's move on.";
       fb.append(p);
     } else {
       for (const p of parts) {
         const part = r[p];
         const div = document.createElement("div");
-        div.className = "rounded bg-slate-50 p-2";
+        div.className = "fb fb-info";
         const strong = document.createElement("strong");
-        strong.className = "capitalize";
+        strong.className = "capitalize font-display";
         strong.textContent = `${prettyLabel(p)} (${part?.score ?? "?"}/3): `;
         div.append(strong, document.createTextNode(part?.feedback ?? ""));
         fb.append(div);
       }
       const overall = document.createElement("div");
-      overall.className = "rounded bg-emerald-50 p-2 mt-2";
+      overall.className = "fb fb-good mt-2";
       const strong = document.createElement("strong");
+      strong.className = "font-display";
       strong.textContent = "Overall: ";
       overall.append(strong, document.createTextNode(r.overall ?? ""));
       fb.append(overall);
 
       const details = document.createElement("details");
-      details.className = "mt-2";
+      details.className = "mt-2 card-soft";
       const summary = document.createElement("summary");
-      summary.className = "cursor-pointer text-sm underline";
-      summary.textContent = "Model answer";
+      summary.className = "cursor-pointer font-display";
+      summary.textContent = "📖 Model answer";
       details.append(summary);
       for (const p of parts) {
         const para = document.createElement("p");

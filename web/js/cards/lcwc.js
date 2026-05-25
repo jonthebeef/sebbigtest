@@ -1,16 +1,16 @@
 const TEMPLATE = `
-  <p class="text-sm text-slate-500">Look · Cover · Write · Check</p>
-  <div class="fact rounded bg-amber-50 p-3 text-lg"></div>
-  <button class="cover w-full rounded bg-indigo-600 px-4 py-3 text-white font-semibold">I've looked — cover it</button>
-  <textarea class="ans hidden w-full rounded border p-3" rows="3" placeholder="Write what you remember…"></textarea>
-  <button class="check hidden w-full rounded bg-indigo-600 px-4 py-3 text-white font-semibold">Check</button>
-  <div class="reveal hidden rounded bg-emerald-50 p-3"></div>
-  <button class="next hidden w-full rounded bg-emerald-600 px-4 py-3 text-white font-semibold">Done</button>
+  <span class="q-pill">👀 Look · Cover · Write · Check</span>
+  <div class="fact card-soft text-lg mt-2" style="background:linear-gradient(135deg,#fff1de,#ffd8a8);"></div>
+  <button class="cover btn btn-primary">I've looked — cover it 🙈</button>
+  <textarea class="ans textarea hidden" rows="3" placeholder="Write what you remember…"></textarea>
+  <button class="check btn btn-primary hidden">Check ✓</button>
+  <div class="reveal fb fb-good hidden"></div>
+  <button class="next btn btn-success hidden">Done →</button>
 `;
 
 function buildCard() {
   const card = document.createElement("section");
-  card.className = "rounded-xl bg-white p-4 shadow space-y-3";
+  card.className = "card space-y-3";
   const tpl = document.createElement("template");
   tpl.innerHTML = TEMPLATE;
   card.append(tpl.content);
@@ -39,9 +39,10 @@ export function lcwcCard({ fact, onDone }) {
     reveal.classList.remove("hidden");
     reveal.replaceChildren();
     const head = document.createElement("p");
-    head.className = "font-semibold";
-    head.textContent = "Original:";
+    head.className = "font-display text-lg";
+    head.textContent = "📜 Original:";
     const body = document.createElement("p");
+    body.className = "mt-1";
     body.textContent = fact;
     reveal.append(head, body);
     next.classList.remove("hidden");

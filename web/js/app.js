@@ -8,10 +8,16 @@ import { planForToday } from "./plan.js";
 import { ensureShareCode, pushSnapshot } from "./sync.js";
 
 const SUBJECTS = [
-  { slug: "maths", name: "Maths" }, { slug: "english", name: "English" }, { slug: "science", name: "Science" },
-  { slug: "geography", name: "Geography" }, { slug: "history", name: "History" },
-  { slug: "french", name: "French" }, { slug: "spanish", name: "Spanish" },
-  { slug: "art", name: "Art" }, { slug: "drama", name: "Drama" }, { slug: "pe", name: "PE" },
+  { slug: "maths", name: "Maths", emoji: "🧮" },
+  { slug: "english", name: "English", emoji: "📖" },
+  { slug: "science", name: "Science", emoji: "🔬" },
+  { slug: "geography", name: "Geography", emoji: "🌍" },
+  { slug: "history", name: "History", emoji: "🏛️" },
+  { slug: "french", name: "French", emoji: "🇫🇷" },
+  { slug: "spanish", name: "Spanish", emoji: "🇪🇸" },
+  { slug: "art", name: "Art", emoji: "🎨" },
+  { slug: "drama", name: "Drama", emoji: "🎭" },
+  { slug: "pe", name: "PE", emoji: "⚽" },
 ];
 
 const root = document.getElementById("app");
@@ -27,11 +33,116 @@ function setText(node, selector, text) {
   if (target) target.textContent = text;
 }
 
-function subjectPrettyName(slug) {
-  const found = SUBJECTS.find(s => s.slug === slug);
-  return found ? found.name : slug;
+function subjectInfo(slug) {
+  return SUBJECTS.find(s => s.slug === slug) || { slug, name: slug, emoji: "📚" };
 }
 
+function subjectPrettyName(slug) {
+  return subjectInfo(slug).name;
+}
+
+/* ------------------------------------------------------------
+   Streak + XP (derived, visual-only)
+   ------------------------------------------------------------ */
+function computeStreak(sessions) {
+  if (!sessions || !sessions.length) return 0;
+  const days = new Set(sessions.map(s => (s.date || "").slice(0, 10)));
+  const today = new Date();
+  const iso = d => d.toISOString().slice(0, 10);
+  let count = 0;
+  // Allow starting today OR yesterday (so a streak counts before they study today).
+  let cursor = new Date(today);
+  if (!days.has(iso(cursor))) {
+    cursor.setDate(cursor.getDate() - 1);
+    if (!days.has(iso(cursor))) return 0;
+  }
+  while (days.has(iso(cursor))) {
+    count++;
+    cursor.setDate(cursor.getDate() - 1);
+  }
+  return count;
+}
+
+function computeXp(history) {
+  return (history || []).reduce((sum, h) => {
+    if (h.type === "recall" && h.outcome === "answered" && h.correct) return sum + 5;
+    if (h.type === "pee" || h.type === "weel") return sum + 10;
+    return sum;
+  }, 0);
+}
+
+function buildTopbar() {
+  const s = loadState();
+  const streak = computeStreak(s.sessions);
+  const xp = computeXp(s.history);
+  const bar = el(`
+    <div class="topbar">
+      <span class="chip chip-streak" data-streak></span>
+      <span class="chip chip-xp" data-xp></span>
+    </div>`);
+  const streakEl = bar.querySelector("[data-streak]");
+  if (streak <= 0) streakEl.textContent = "🚀 Start your streak!";
+  else streakEl.textContent = `🔥 ${streak}-day streak`;
+  bar.querySelector("[data-xp]").textContent = `✨ ${xp} XP`;
+  return bar;
+}
+
+/* ------------------------------------------------------------
+   Celebration helpers
+   ------------------------------------------------------------ */
+const CONFETTI_COLORS = ["#ff3b81", "#7c3aed", "#ffb020", "#16a374", "#38bdf8", "#ff8a00"];
+
+function celebrate() {
+  // Confetti
+  const confetti = document.createElement("div");
+  confetti.className = "confetti";
+  for (let i = 0; i < 18; i++) {
+    const piece = document.createElement("span");
+    const angle = (Math.PI * 2 * i) / 18 + Math.random() * 0.3;
+    const dist = 140 + Math.random() * 120;
+    piece.style.setProperty("--tx", `${Math.cos(angle) * dist}px`);
+    piece.style.setProperty("--ty", `${Math.sin(angle) * dist}px`);
+    piece.style.setProperty("--rot", `${Math.random() * 720 - 360}deg`);
+    piece.style.background = CONFETTI_COLORS[i % CONFETTI_COLORS.length];
+    piece.style.animationDelay = `${Math.random() * 60}ms`;
+    confetti.append(piece);
+  }
+  document.body.append(confetti);
+  setTimeout(() => confetti.remove(), 1100);
+
+  // Badge
+  const badge = document.createElement("div");
+  badge.className = "correct-badge";
+  const inner = document.createElement("div");
+  inner.className = "b";
+  inner.textContent = "CORRECT!";
+  badge.append(inner);
+  document.body.append(badge);
+  setTimeout(() => badge.remove(), 950);
+
+  // XP floater
+  const xp = document.createElement("div");
+  xp.className = "xp-float";
+  xp.textContent = "+5 XP";
+  document.body.append(xp);
+  setTimeout(() => xp.remove(), 1250);
+}
+
+function showXpGain(amount) {
+  const xp = document.createElement("div");
+  xp.className = "xp-float";
+  xp.textContent = `+${amount} XP`;
+  document.body.append(xp);
+  setTimeout(() => xp.remove(), 1250);
+}
+
+// Expose for card modules
+window.__sebCelebrate = celebrate;
+window.__sebXp = showXpGain;
+
+/* ------------------------------------------------------------
+   Renderers
+   ------------------------------------------------------------ */
 async function render() {
   const s = loadState();
   if (!s.profileId || !s.displayName) return renderName();
@@ -44,43 +155,57 @@ async function render() {
 function renderName() {
   root.innerHTML = "";
   const view = el(`
-    <section class="space-y-4 mt-8">
-      <h1 class="text-3xl font-bold">Hi!</h1>
-      <p>What should we call you?</p>
-      <input id="name" class="w-full rounded border p-3 text-lg" placeholder="Your name" />
-      <button id="go" class="w-full rounded bg-indigo-600 px-4 py-3 text-white text-lg font-semibold">Let's go</button>
+    <section class="space-y-5 mt-6">
+      <div class="hero">
+        <h1>Hey there! 👋</h1>
+        <p class="text-lg">Let's get you ready for the Big Test.</p>
+      </div>
+      <div class="card space-y-4">
+        <label class="h-sub" for="name">What should we call you?</label>
+        <input id="name" class="input" placeholder="Your name" autocomplete="given-name" />
+        <button id="go" class="btn btn-primary">Let's go 🚀</button>
+      </div>
     </section>
   `);
   root.append(view);
-  view.querySelector("#go").addEventListener("click", () => {
-    const v = view.querySelector("#name").value.trim();
+  const input = view.querySelector("#name");
+  input.focus();
+  const go = view.querySelector("#go");
+  function commit() {
+    const v = input.value.trim();
     if (!v) return;
     const s = loadState();
     s.displayName = v;
     s.profileId = s.profileId ?? newProfileId();
     saveState(s); render();
-  });
+  }
+  go.addEventListener("click", commit);
+  input.addEventListener("keydown", e => { if (e.key === "Enter") commit(); });
 }
 
 function renderSubjects() {
   root.innerHTML = "";
   const view = el(`
-    <section class="space-y-4 mt-8">
-      <h1 class="text-2xl font-bold">Pick your subjects</h1>
-      <p>Tick the ones you actually do at school.</p>
+    <section class="space-y-5 mt-4">
+      <div class="hero">
+        <h1>Pick your subjects 📚</h1>
+        <p>Tick the ones you actually do at school.</p>
+      </div>
       <div id="list" class="space-y-2"></div>
-      <button id="go" class="w-full rounded bg-indigo-600 px-4 py-3 text-white font-semibold">Continue</button>
+      <button id="go" class="btn btn-primary">Continue →</button>
     </section>
   `);
   const list = view.querySelector("#list");
   for (const sub of SUBJECTS) {
     const row = el(`
-      <label class="flex items-center gap-3 rounded border p-3 bg-white">
-        <input type="checkbox" class="w-5 h-5" />
-        <span class="text-lg subject-name"></span>
+      <label class="tile">
+        <input type="checkbox" />
+        <span class="emoji" style="font-size:24px"></span>
+        <span class="subject-name flex-1"></span>
       </label>`);
     const cb = row.querySelector("input");
     cb.dataset.slug = sub.slug;
+    setText(row, ".emoji", sub.emoji);
     setText(row, ".subject-name", sub.name);
     list.append(row);
   }
@@ -96,21 +221,23 @@ function renderSubjects() {
 
 async function renderCoverage(slug) {
   root.innerHTML = "";
-  root.append(el(`<p class="mt-8">Loading…</p>`));
+  root.append(el(`<p class="mt-8 h-sub">Loading…</p>`));
   let subject;
   try {
     subject = await loadSubject(slug);
   } catch (e) {
-    // Lenient: if content isn't ready, mark this subject as having empty
-    // coverage and let the user move on, so we don't get stuck.
     root.innerHTML = "";
+    const info = subjectInfo(slug);
     const notReady = el(`
-      <section class="space-y-4 mt-8">
-        <h1 class="text-2xl font-bold subject-title"></h1>
-        <p>Content isn't ready yet for this subject. We'll skip it for now.</p>
-        <button id="go" class="w-full rounded bg-indigo-600 px-4 py-3 text-white font-semibold">Continue</button>
+      <section class="space-y-4 mt-4">
+        <div class="hero">
+          <h1><span class="subject-emoji"></span> <span class="subject-title"></span></h1>
+          <p>Content isn't ready for this subject yet — we'll skip it for now.</p>
+        </div>
+        <button id="go" class="btn btn-primary">Continue →</button>
       </section>`);
-    setText(notReady, ".subject-title", subjectPrettyName(slug));
+    setText(notReady, ".subject-emoji", info.emoji);
+    setText(notReady, ".subject-title", info.name);
     root.append(notReady);
     notReady.querySelector("#go").addEventListener("click", () => {
       const s = loadState();
@@ -120,20 +247,24 @@ async function renderCoverage(slug) {
     return;
   }
   root.innerHTML = "";
+  const info = subjectInfo(slug);
   const view = el(`
-    <section class="space-y-4 mt-8">
-      <h1 class="text-2xl font-bold subject-title"></h1>
-      <p>Tick the topics your class has actually studied.</p>
+    <section class="space-y-5 mt-4">
+      <div class="hero">
+        <h1><span class="subject-emoji"></span> <span class="subject-title"></span></h1>
+        <p>Tick the topics your class has actually studied.</p>
+      </div>
       <div id="list" class="space-y-2"></div>
-      <button id="go" class="w-full rounded bg-indigo-600 px-4 py-3 text-white font-semibold">Continue</button>
+      <button id="go" class="btn btn-primary">Continue →</button>
     </section>`);
-  setText(view, ".subject-title", subject.subject ?? subjectPrettyName(slug));
+  setText(view, ".subject-emoji", info.emoji);
+  setText(view, ".subject-title", subject.subject ?? info.name);
   const list = view.querySelector("#list");
   for (const t of (subject.topics ?? [])) {
     const row = el(`
-      <label class="flex items-center gap-3 rounded border p-3 bg-white">
-        <input type="checkbox" class="w-5 h-5" checked />
-        <span class="text-lg topic-name"></span>
+      <label class="tile">
+        <input type="checkbox" checked />
+        <span class="topic-name flex-1"></span>
       </label>`);
     const cb = row.querySelector("input");
     cb.dataset.id = t.id;
@@ -152,7 +283,7 @@ async function renderCoverage(slug) {
 async function renderHome() {
   const s = loadState();
   root.innerHTML = "";
-  root.append(el(`<p class="mt-8">Loading…</p>`));
+  root.append(el(`<p class="mt-8 h-sub">Loading…</p>`));
 
   const metas = {};
   await Promise.all(s.enabledSubjects.map(async slug => {
@@ -163,39 +294,46 @@ async function renderHome() {
   const todays = planForToday(s, metas);
 
   root.innerHTML = "";
+  root.append(buildTopbar());
+
   const view = el(`
-    <section class="space-y-4 mt-8">
-      <h1 class="text-2xl font-bold greeting"></h1>
-      <p class="text-lg">Today's plan:</p>
+    <section class="space-y-5">
+      <div class="hero">
+        <h1 class="greeting"></h1>
+        <p class="text-lg">📚 Today's plan — let's smash it.</p>
+      </div>
       <ol id="list" class="space-y-2"></ol>
-      <button id="start" class="w-full rounded bg-indigo-600 px-4 py-3 text-white text-lg font-semibold">▶ Start</button>
+      <button id="start" class="btn btn-go">🚀 Start</button>
     </section>`);
-  setText(view, ".greeting", `Hi ${s.displayName}`);
+  setText(view, ".greeting", `Hi ${s.displayName}! 💪`);
   const list = view.querySelector("#list");
   todays.forEach((slug, i) => {
+    const info = subjectInfo(slug);
     const meta = metas[slug];
-    const name = meta?.subject ?? subjectPrettyName(slug);
-    const li = el(`<li class="rounded border p-3 bg-white text-lg"></li>`);
-    li.textContent = `${i + 1}. ${name}`;
+    const name = meta?.subject ?? info.name;
+    const li = el(`<li class="plan-item"><span class="num"></span><span class="emoji"></span><span class="name"></span></li>`);
+    li.querySelector(".num").textContent = String(i + 1);
+    li.querySelector(".emoji").textContent = info.emoji;
+    li.querySelector(".name").textContent = name;
     list.append(li);
   });
   const startBtn = view.querySelector("#start");
   if (!todays.length) {
     startBtn.disabled = true;
-    startBtn.classList.add("opacity-50");
+    startBtn.textContent = "All done for today! 🎉";
   } else {
     startBtn.addEventListener("click", () => startSubject(todays[0], todays.slice(1)));
   }
   root.append(view);
 
   const settings = el(`
-    <details class="mt-6 text-sm">
-      <summary class="cursor-pointer">Settings</summary>
-      <label class="mt-2 flex items-center gap-2">
-        <input id="share" type="checkbox" />
+    <details class="mt-6 card-soft text-sm">
+      <summary class="cursor-pointer font-display text-base">⚙️ Settings</summary>
+      <label class="mt-3 flex items-center gap-2 font-display">
+        <input id="share" type="checkbox" class="w-5 h-5" />
         Share progress with parent
       </label>
-      <div id="codebox" class="hidden mt-2 space-y-1"></div>
+      <div id="codebox" class="hidden mt-3 space-y-1"></div>
     </details>`);
   const shareToggle = settings.querySelector("#share");
   const box = settings.querySelector("#codebox");
@@ -204,10 +342,10 @@ async function renderHome() {
     const code = ensureShareCode();
     box.replaceChildren();
     const codeLine = document.createElement("div");
-    codeLine.className = "font-mono";
+    codeLine.className = "font-mono text-base font-display";
     codeLine.textContent = `Parent code: ${code}`;
     const help = document.createElement("p");
-    help.className = "text-slate-600";
+    help.className = "text-slate-700 mt-1";
     help.textContent = "Share this code with your parent. They open the Parent View at the same site /parent.html?code=" + code;
     box.append(codeLine, help);
     box.classList.remove("hidden");
@@ -220,7 +358,7 @@ async function renderHome() {
     if (shareToggle.checked) ensureShareCode();
     render();
   });
-  view.append(settings);
+  root.append(settings);
 }
 
 async function startSubject(slug, remainder) {
@@ -234,25 +372,50 @@ async function startSubject(slug, remainder) {
   const queue = qs.sort(() => Math.random() - 0.5).slice(0, 8);
 
   root.innerHTML = "";
+  root.append(buildTopbar());
+
+  const info = subjectInfo(slug);
   const container = el(`
-    <section class="mt-4 space-y-4">
-      <h2 class="text-xl font-semibold subject-title"></h2>
-      <div class="prog text-sm text-slate-500"></div>
+    <section class="mt-2 space-y-4">
+      <div class="card-soft">
+        <div class="flex items-center gap-3 mb-3">
+          <span class="text-3xl subject-emoji"></span>
+          <h2 class="h-display flex-1 subject-title"></h2>
+        </div>
+        <div class="flex items-center gap-3">
+          <div class="progress-shell flex-1"><div class="progress-fill"></div></div>
+          <span class="font-display text-sm prog-text whitespace-nowrap"></span>
+        </div>
+      </div>
       <div class="slot"></div>
     </section>`);
-  setText(container, ".subject-title", subject.subject ?? subjectPrettyName(slug));
+  setText(container, ".subject-emoji", info.emoji);
+  setText(container, ".subject-title", subject.subject ?? info.name);
   root.append(container);
   const slot = container.querySelector(".slot");
-  const prog = container.querySelector(".prog");
+  const fill = container.querySelector(".progress-fill");
+  const progText = container.querySelector(".prog-text");
+
+  function updateProgress(current, total) {
+    const pct = total ? Math.round((current / total) * 100) : 100;
+    fill.style.width = `${pct}%`;
+    progText.textContent = `${current}/${total}`;
+  }
 
   if (!queue.length) {
+    updateProgress(0, 1);
     return runExtras(slug, subject, topics, remainder, slot);
   }
 
+  updateProgress(0, queue.length);
+
   let i = 0;
   function showNext() {
-    if (i >= queue.length) return runExtras(slug, subject, topics, remainder, slot);
-    prog.textContent = `Question ${i + 1} of ${queue.length}`;
+    if (i >= queue.length) {
+      updateProgress(queue.length, queue.length);
+      return runExtras(slug, subject, topics, remainder, slot);
+    }
+    updateProgress(i, queue.length);
     const q = queue[i];
     slot.innerHTML = "";
     slot.append(recallCard({
@@ -263,8 +426,12 @@ async function startSubject(slug, remainder) {
         saveState(st);
         if (result.outcome === "answered" && !result.correct) {
           slot.innerHTML = "";
-          slot.append(lcwcCard({ fact: q.a, onDone: () => { i++; showNext(); } }));
-        } else { i++; showNext(); }
+          slot.append(lcwcCard({ fact: q.a, onDone: () => { i++; updateProgress(i, queue.length); showNext(); } }));
+        } else {
+          i++;
+          updateProgress(i, queue.length);
+          showNext();
+        }
       },
     }));
   }
@@ -287,6 +454,7 @@ function runExtras(slug, subject, topics, remainder, slot) {
     const st = loadState();
     st.history.push({ date: new Date().toISOString(), subject: slug, topic: pick.topicId, type: extraType, ...data });
     saveState(st);
+    showXpGain(10);
     endSubject(slug, remainder, slot);
   }
 
@@ -300,12 +468,12 @@ function runExtras(slug, subject, topics, remainder, slot) {
 function endSubject(slug, remainder, slot) {
   slot.innerHTML = "";
   const panel = el(`
-    <div class="space-y-4 rounded-xl bg-emerald-50 p-4">
-      <p class="text-lg font-semibold">How did that feel?</p>
+    <div class="card space-y-4">
+      <p class="h-display text-center">How did that feel? 🎯</p>
       <div class="flex gap-3">
-        <button data-c="frown" class="flex-1 rounded bg-white border p-3 text-3xl">😅</button>
-        <button data-c="smile" class="flex-1 rounded bg-white border p-3 text-3xl">🙂</button>
-        <button data-c="strong" class="flex-1 rounded bg-white border p-3 text-3xl">💪</button>
+        <button data-c="frown" class="conf-btn">😅<span class="lbl">tricky</span></button>
+        <button data-c="smile" class="conf-btn">🙂<span class="lbl">okay</span></button>
+        <button data-c="strong" class="conf-btn">💪<span class="lbl">strong</span></button>
       </div>
     </div>`);
   panel.querySelectorAll("button[data-c]").forEach(btn => {
