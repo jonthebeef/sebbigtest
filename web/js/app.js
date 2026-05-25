@@ -2,6 +2,7 @@ import { loadState, saveState, newProfileId } from "./state.js";
 import { loadSubject } from "./content-loader.js";
 import { recallCard } from "./cards/recall.js";
 import { lcwcCard } from "./cards/lcwc.js";
+import { peeCard } from "./cards/pee.js";
 
 const SUBJECTS = [
   { slug: "maths", name: "Maths" }, { slug: "english", name: "English" }, { slug: "science", name: "Science" },
@@ -214,7 +215,23 @@ async function startSubject(slug, remainder) {
 }
 
 function runExtras(slug, subject, topics, remainder, slot) {
-  // overwritten in tasks 4.4 / 4.5
+  if (slug === "geography") {
+    const pool = topics.flatMap(t => (t.pee_prompts ?? []).map(p => ({ ...p, topicId: t.id })));
+    if (pool.length) {
+      const pick = pool[Math.floor(Math.random() * pool.length)];
+      slot.innerHTML = "";
+      slot.append(peeCard({
+        question: pick.question, model: pick.model_answer,
+        onDone: data => {
+          const st = loadState();
+          st.history.push({ date: new Date().toISOString(), subject: slug, topic: pick.topicId, type: "pee", ...data });
+          saveState(st);
+          endSubject(slug, remainder, slot);
+        },
+      }));
+      return;
+    }
+  }
   endSubject(slug, remainder, slot);
 }
 
