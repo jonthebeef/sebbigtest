@@ -56,6 +56,36 @@ export default {
       }
     }
 
+    if (url.pathname === "/api/sync" && req.method === "POST") {
+      const ip = req.headers.get("CF-Connecting-IP") ?? "unknown";
+      const writeKey = `sync:wr:${ip}:${Math.floor(Date.now() / 3_600_000)}`;
+      const count = Number((await env.RATE_KV.get(writeKey)) ?? 0);
+      if (count >= 6) return new Response("Too many writes", { status: 429, headers: cors(env) });
+      let body: { code?: string; snapshot?: unknown };
+      try { body = await req.json(); } catch { return new Response("Bad JSON", { status: 400, headers: cors(env) }); }
+      if (!body.code || !/^[a-z0-9]{4}-[a-z0-9]{4}$/.test(body.code))
+        return new Response("Bad code", { status: 400, headers: cors(env) });
+      if (!body.snapshot || typeof body.snapshot !== "object")
+        return new Response("Bad snapshot", { status: 400, headers: cors(env) });
+      const text = JSON.stringify(body.snapshot);
+      if (text.length > 200_000) return new Response("Snapshot too large", { status: 413, headers: cors(env) });
+      await env.PARENT_KV.put(`p:${body.code}`, text, { expirationTtl: 86_400 * 30 });
+      await env.RATE_KV.put(writeKey, String(count + 1), { expirationTtl: 3600 });
+      return new Response(null, { status: 204, headers: cors(env) });
+    }
+
+    const m = url.pathname.match(/^\/api\/parent\/([a-z0-9]{4}-[a-z0-9]{4})$/);
+    if (m && req.method === "GET") {
+      const ip = req.headers.get("CF-Connecting-IP") ?? "unknown";
+      const readKey = `sync:rd:${ip}:${Math.floor(Date.now() / 60_000)}`;
+      const rc = Number((await env.RATE_KV.get(readKey)) ?? 0);
+      if (rc >= 30) return new Response("Too many reads", { status: 429, headers: cors(env) });
+      await env.RATE_KV.put(readKey, String(rc + 1), { expirationTtl: 60 });
+      const stored = await env.PARENT_KV.get(`p:${m[1]}`);
+      if (!stored) return new Response("Not found", { status: 404, headers: cors(env) });
+      return new Response(stored, { status: 200, headers: { ...cors(env), "content-type": "application/json" } });
+    }
+
     return new Response("Not found", { status: 404, headers: cors(env) });
   },
 };
