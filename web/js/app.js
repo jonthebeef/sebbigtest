@@ -1,5 +1,6 @@
 import { loadState, saveState, newProfileId } from "./state.js";
 import { loadSubject } from "./content-loader.js";
+import { recallCard } from "./cards/recall.js";
 
 const SUBJECTS = [
   { slug: "maths", name: "Maths" }, { slug: "english", name: "English" }, { slug: "science", name: "Science" },
@@ -149,10 +150,78 @@ function renderHome() {
   const view = el(`
     <section class="space-y-4 mt-8">
       <h1 class="text-2xl font-bold greeting"></h1>
-      <p>Today's plan will appear here.</p>
+      <p>Pick a subject to practise:</p>
+      <div id="list" class="space-y-2"></div>
     </section>`);
-  setText(view, ".greeting", `Good morning, ${s.displayName}`);
+  setText(view, ".greeting", `Hi ${s.displayName}`);
+  const list = view.querySelector("#list");
+  for (const slug of s.enabledSubjects) {
+    const btn = el(`<button class="w-full rounded bg-white border p-3 text-left text-lg"></button>`);
+    btn.textContent = subjectPrettyName(slug);
+    btn.addEventListener("click", () => startSubject(slug, []));
+    list.append(btn);
+  }
   root.append(view);
+}
+
+async function startSubject(slug, remainder) {
+  const s = loadState();
+  let subject;
+  try { subject = await loadSubject(slug); }
+  catch { return render(); }
+  const covered = new Set(s.coveredTopics[slug] ?? []);
+  const topics = (subject.topics ?? []).filter(t => covered.has(t.id));
+  const qs = topics.flatMap(t => (t.retrieval_questions ?? []).map(q => ({ ...q, topicId: t.id })));
+  const queue = qs.sort(() => Math.random() - 0.5).slice(0, 8);
+
+  root.innerHTML = "";
+  const container = el(`
+    <section class="mt-4 space-y-4">
+      <h2 class="text-xl font-semibold subject-title"></h2>
+      <div class="prog text-sm text-slate-500"></div>
+      <div class="slot"></div>
+    </section>`);
+  setText(container, ".subject-title", subject.subject ?? subjectPrettyName(slug));
+  root.append(container);
+  const slot = container.querySelector(".slot");
+  const prog = container.querySelector(".prog");
+
+  if (!queue.length) {
+    return runExtras(slug, subject, topics, remainder, slot);
+  }
+
+  let i = 0;
+  function showNext() {
+    if (i >= queue.length) return runExtras(slug, subject, topics, remainder, slot);
+    prog.textContent = `Question ${i + 1} of ${queue.length}`;
+    const q = queue[i];
+    slot.innerHTML = "";
+    slot.append(recallCard({
+      question: q.q, expected: q.a,
+      onDone: result => {
+        const st = loadState();
+        st.history.push({ date: new Date().toISOString(), subject: slug, topic: q.topicId, type: "recall", ...result });
+        saveState(st);
+        if (result.outcome === "answered" && !result.correct) {
+          // LCWC inserted in Task 4.3
+          i++; showNext();
+        } else { i++; showNext(); }
+      },
+    }));
+  }
+  showNext();
+}
+
+function runExtras(slug, subject, topics, remainder, slot) {
+  // overwritten in tasks 4.4 / 4.5
+  endSubject(slug, remainder, slot);
+}
+
+function endSubject(slug, remainder, slot) {
+  slot.innerHTML = "";
+  const done = el(`<div class="rounded-xl bg-emerald-50 p-4">Done! <button class="back ml-2 underline">Home</button></div>`);
+  done.querySelector(".back").addEventListener("click", render);
+  slot.append(done);
 }
 
 render();
