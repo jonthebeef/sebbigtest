@@ -463,48 +463,63 @@ function runFlashcards(slug, topic) {
   const container = el(`
     <section class="space-y-4">
       <div class="card-soft">
-        <p class="text-sm text-slate-700">${info.emoji} ${subjectInfo(slug).name} · Flashcards</p>
+        <p class="text-sm text-slate-700 mode-line"></p>
         <h2 class="h-display topic-title"></h2>
+        <div class="flex items-center gap-3 mt-2">
+          <div class="progress-shell flex-1"><div class="progress-fill"></div></div>
+          <span class="font-display text-sm prog-text whitespace-nowrap"></span>
+        </div>
       </div>
       <div class="slot"></div>
     </section>`);
+  container.querySelector(".mode-line").textContent = `${info.emoji} ${subjectInfo(slug).name} · Flashcards`;
   container.querySelector(".topic-title").textContent = topic.name;
   root.append(container);
   const slot = container.querySelector(".slot");
+  const fill = container.querySelector(".progress-fill");
+  const progText = container.querySelector(".prog-text");
 
-  const ratings = { strong: 0, smile: 0, frown: 0 };
+  const tally = { correct: 0, wrong: 0, skipped: 0 };
   let i = 0;
+
+  function updateProgress() {
+    const pct = total ? Math.round((i / total) * 100) : 100;
+    fill.style.width = `${pct}%`;
+    progText.textContent = `${i} / ${total}`;
+  }
+  updateProgress();
 
   function showNext() {
     if (i >= cards.length) return finish();
     const c = cards[i];
     slot.replaceChildren();
-    slot.append(flashcardCard({
+    slot.append(recallCard({
       question: c.q,
-      answer: c.a,
-      index: i,
-      total: cards.length,
-      onRate: rating => {
-        ratings[rating] = (ratings[rating] ?? 0) + 1;
+      expected: c.a,
+      onDone: result => {
         const st = loadState();
+        if (result.outcome === "answered") {
+          if (result.correct) tally.correct++; else tally.wrong++;
+        } else if (result.outcome === "idk") {
+          tally.wrong++;
+        } else {
+          tally.skipped++;
+        }
         st.history.push({
           date: new Date().toISOString(),
           subject: slug,
           topic: topic.id,
           type: "flashcard",
-          outcome: "rated",
-          rating,
+          ...result,
         });
-        // Count "strong" rating as a session entry for streak/sessions
         if (i === 0) {
           st.sessions.push({ date: new Date().toISOString(), subject: slug, mode: "flashcards" });
         }
         saveState(st);
-        if (rating === "strong" && typeof window.__sebXp === "function") window.__sebXp(3);
         i++;
+        updateProgress();
         showNext();
       },
-      onSkip: () => finish(),
     }));
   }
 
@@ -515,9 +530,9 @@ function runFlashcards(slug, topic) {
         <h2 class="h-display">Nice work! 🎉</h2>
         <p class="text-base">Summary for <strong class="topic-name"></strong>:</p>
         <ul class="prep-list">
-          <li>💪 Got it: <strong class="r-strong"></strong></li>
-          <li>🤔 Hmm: <strong class="r-smile"></strong></li>
-          <li>😅 Don't know: <strong class="r-frown"></strong></li>
+          <li>✅ Got right: <strong class="r-good"></strong></li>
+          <li>🤏 Got wrong / didn't know: <strong class="r-bad"></strong></li>
+          <li>⏭️ Skipped: <strong class="r-skip"></strong></li>
         </ul>
         <div class="grid grid-cols-2 gap-2">
           <button id="again" class="btn btn-primary">🔁 Again</button>
@@ -525,14 +540,13 @@ function runFlashcards(slug, topic) {
         </div>
       </div>`);
     done.querySelector(".topic-name").textContent = topic.name;
-    done.querySelector(".r-strong").textContent = String(ratings.strong);
-    done.querySelector(".r-smile").textContent = String(ratings.smile);
-    done.querySelector(".r-frown").textContent = String(ratings.frown);
+    done.querySelector(".r-good").textContent = String(tally.correct);
+    done.querySelector(".r-bad").textContent = String(tally.wrong);
+    done.querySelector(".r-skip").textContent = String(tally.skipped);
     done.querySelector("#again").addEventListener("click", () => runFlashcards(slug, topic));
     done.querySelector("#home").addEventListener("click", render);
     slot.append(done);
 
-    // Push snapshot if sharing
     pushSnapshot();
   }
 
