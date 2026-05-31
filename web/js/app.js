@@ -7,6 +7,7 @@ import { weelCard } from "./cards/weel.js";
 import { mcqCard } from "./cards/mcq.js";
 import { explainCard } from "./cards/explain.js";
 import { prepCard, bookNudge } from "./cards/prep.js";
+import { flashcardCard } from "./cards/flashcard.js";
 import { planForToday } from "./plan.js";
 import { ensureShareCode, pushSnapshot } from "./sync.js";
 
@@ -316,6 +317,7 @@ async function renderHome() {
             <p class="text-sm">Open your exercise book or textbook for the topic before you start. A quick skim helps your brain warm up.</p>
           </div>
           <button id="start" class="btn btn-go">🚀 Start</button>
+          <button id="flash" class="btn btn-primary" style="margin-top:10px">🎴 Flashcards</button>
         </div>
       </div>
     </section>`);
@@ -338,6 +340,7 @@ async function renderHome() {
   } else {
     startBtn.addEventListener("click", () => startSubject(todays[0], todays.slice(1)));
   }
+  view.querySelector("#flash").addEventListener("click", () => renderFlashcardSubjects());
   root.append(view);
 
   const settings = el(`
@@ -373,6 +376,167 @@ async function renderHome() {
     render();
   });
   root.append(settings);
+}
+
+/* ------------------------------------------------------------
+   Flashcard mode
+   ------------------------------------------------------------ */
+async function renderFlashcardSubjects() {
+  const s = loadState();
+  root.innerHTML = "";
+  root.append(buildTopbar());
+  const view = el(`
+    <section class="space-y-5">
+      <div class="hero">
+        <h1>🎴 Flashcards</h1>
+        <p class="text-lg">Pick a subject — only what's in your revision notes.</p>
+      </div>
+      <div id="list" class="space-y-2"></div>
+      <button id="back" class="btn btn-ghost mt-4">← Back</button>
+    </section>`);
+  const list = view.querySelector("#list");
+  for (const slug of s.enabledSubjects) {
+    const info = subjectInfo(slug);
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "topic-tile";
+    const e = document.createElement("span"); e.style.fontSize = "22px"; e.textContent = info.emoji;
+    const n = document.createElement("span"); n.textContent = info.name;
+    btn.append(e, n);
+    btn.addEventListener("click", () => renderFlashcardTopics(slug));
+    list.append(btn);
+  }
+  view.querySelector("#back").addEventListener("click", render);
+  root.append(view);
+}
+
+async function renderFlashcardTopics(slug) {
+  const s = loadState();
+  root.innerHTML = "";
+  root.append(buildTopbar());
+  let subject;
+  try { subject = await loadSubject(slug); }
+  catch { return renderFlashcardSubjects(); }
+  const covered = new Set(s.coveredTopics[slug] ?? []);
+  const topics = (subject.topics ?? []).filter(t => covered.has(t.id) && (t.retrieval_questions ?? []).length);
+
+  const info = subjectInfo(slug);
+  const view = el(`
+    <section class="space-y-5">
+      <div class="hero">
+        <h1></h1>
+        <p class="text-lg">Pick a topic to flashcard.</p>
+      </div>
+      <div id="list" class="space-y-2"></div>
+      <button id="back" class="btn btn-ghost mt-4">← Subjects</button>
+    </section>`);
+  view.querySelector("h1").textContent = `${info.emoji} ${subject.subject ?? info.name}`;
+  const list = view.querySelector("#list");
+  if (!topics.length) {
+    const empty = document.createElement("p");
+    empty.className = "card-soft";
+    empty.textContent = "No covered topics yet for this subject. Tick them in Settings or finish a session first.";
+    list.append(empty);
+  }
+  for (const t of topics) {
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "topic-tile";
+    const name = document.createElement("span"); name.textContent = t.name;
+    const count = document.createElement("span"); count.className = "count"; count.textContent = `${(t.retrieval_questions ?? []).length} cards`;
+    btn.append(name, count);
+    btn.addEventListener("click", () => runFlashcards(slug, t));
+    list.append(btn);
+  }
+  view.querySelector("#back").addEventListener("click", renderFlashcardSubjects);
+  root.append(view);
+}
+
+function runFlashcards(slug, topic) {
+  const cards = [...(topic.retrieval_questions ?? [])].sort(() => Math.random() - 0.5);
+  const total = cards.length;
+  if (!total) return renderFlashcardTopics(slug);
+
+  root.innerHTML = "";
+  root.append(buildTopbar());
+  const info = subjectInfo(slug);
+  const container = el(`
+    <section class="space-y-4">
+      <div class="card-soft">
+        <p class="text-sm text-slate-700">${info.emoji} ${subjectInfo(slug).name} · Flashcards</p>
+        <h2 class="h-display topic-title"></h2>
+      </div>
+      <div class="slot"></div>
+    </section>`);
+  container.querySelector(".topic-title").textContent = topic.name;
+  root.append(container);
+  const slot = container.querySelector(".slot");
+
+  const ratings = { strong: 0, smile: 0, frown: 0 };
+  let i = 0;
+
+  function showNext() {
+    if (i >= cards.length) return finish();
+    const c = cards[i];
+    slot.replaceChildren();
+    slot.append(flashcardCard({
+      question: c.q,
+      answer: c.a,
+      index: i,
+      total: cards.length,
+      onRate: rating => {
+        ratings[rating] = (ratings[rating] ?? 0) + 1;
+        const st = loadState();
+        st.history.push({
+          date: new Date().toISOString(),
+          subject: slug,
+          topic: topic.id,
+          type: "flashcard",
+          outcome: "rated",
+          rating,
+        });
+        // Count "strong" rating as a session entry for streak/sessions
+        if (i === 0) {
+          st.sessions.push({ date: new Date().toISOString(), subject: slug, mode: "flashcards" });
+        }
+        saveState(st);
+        if (rating === "strong" && typeof window.__sebXp === "function") window.__sebXp(3);
+        i++;
+        showNext();
+      },
+      onSkip: () => finish(),
+    }));
+  }
+
+  function finish() {
+    slot.replaceChildren();
+    const done = el(`
+      <div class="card-soft space-y-3">
+        <h2 class="h-display">Nice work! 🎉</h2>
+        <p class="text-base">Summary for <strong class="topic-name"></strong>:</p>
+        <ul class="prep-list">
+          <li>💪 Got it: <strong class="r-strong"></strong></li>
+          <li>🤔 Hmm: <strong class="r-smile"></strong></li>
+          <li>😅 Don't know: <strong class="r-frown"></strong></li>
+        </ul>
+        <div class="grid grid-cols-2 gap-2">
+          <button id="again" class="btn btn-primary">🔁 Again</button>
+          <button id="home" class="btn btn-go">🏠 Home</button>
+        </div>
+      </div>`);
+    done.querySelector(".topic-name").textContent = topic.name;
+    done.querySelector(".r-strong").textContent = String(ratings.strong);
+    done.querySelector(".r-smile").textContent = String(ratings.smile);
+    done.querySelector(".r-frown").textContent = String(ratings.frown);
+    done.querySelector("#again").addEventListener("click", () => runFlashcards(slug, topic));
+    done.querySelector("#home").addEventListener("click", render);
+    slot.append(done);
+
+    // Push snapshot if sharing
+    pushSnapshot();
+  }
+
+  showNext();
 }
 
 function questionKey(topicId, q) { return `${topicId}|${q}`; }
