@@ -2,6 +2,7 @@ name = "seb-revision-api"
 main = "worker/src/index.ts"
 compatibility_date = "2026-05-01"
 workers_dev = true
+account_id = "2815f972359c9757db553894ad70de58"
 
 [[kv_namespaces]]
 binding = "RATE_KV"
